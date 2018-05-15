@@ -1,0 +1,33 @@
+<div class="ac-headline">
+	Size
+</div>
+<div class="ac-form">
+	<% if @size.errors.any? %>
+        <div id="error_explanation" class="text-center">
+            <h5><%= @size.errors.count %>件のエラーが発生しました。</h5>
+            <% @size.errors.full_messages.each do |message| %>
+                <h6><%= message %></h6>
+            <% end %>
+        </div>
+    <% end %>
+	<%= form_for(size) do |f| %>
+		<div class="form-group">
+			<label for="size-name">サイズ名：</label>
+			<%= f.text_field :size_name, class:"form-control", id:"size-name", placeholder:"サイズ名" %>
+		</div>
+		<div class="form-group">
+			<label for="diameter">直径：</label>
+			<%= f.text_field :diameter, class:"form-control", id:"diameter", placeholder:"直径" %>
+		</div>
+		<% if params[:size_id].present? %>
+			<div class="form-group", style="padding-bottom: 20px">
+				<%= f.submit 'size edit', class:"edit pull-right" %>
+				<%= link_to 'back', sizes_path, class:"button pull-right" %>
+			</div>
+		<% else %>
+			<div class="form-group", style="padding-bottom: 20px">
+				<%= f.submit 'size create', class:"create pull-right" %>
+			</div>
+		<% end %>
+	<% end %>
+</div>

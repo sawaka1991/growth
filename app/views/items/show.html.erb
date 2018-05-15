@@ -1,0 +1,107 @@
+<div class="top-box"></div>
+<div class="main-box clearfix">
+    <div class="col-lg-6 col-xs-12">
+        <% @item.item_images.each_with_index do |image,i| %>
+            <% if i == 0 %>
+                <div class="mainImage">
+                    <%= attachment_image_tag image, :image, alt: "#{i}" %>
+                </div>
+            <% end %>
+        <% end %>
+        <% @item.item_images.each_with_index do |image,i| %>
+            <div class="thumbnails">
+                <%= attachment_image_tag image, :image, alt: "#{i}" %>
+            </div>
+        <% end %>
+    </div>
+    <div class="col-lg-6 col-xs-12" >
+        <table class="table" style="text-align: center">
+            <caption style="font-size: 20px; text-align: center; padding-bottom: 20px">
+            	<%= @item.item_name %>
+            </caption>
+            <tbody>
+                <tr>
+                    <td>introduction</td>
+                    <td colspan="3">
+                    	<%= @item.introduction %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>allergie</td>
+                    <td colspan="3">
+                    	<% @item.allergies.each do |a| %>
+                    		<%= a.material.material_name %>&emsp;
+                    	<% end %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>taste</td>
+                    <td colspan="3">
+                        <% @item.item_tastes.each do |it| %>
+                            <%= it.taste.taste_name %>&emsp;
+                        <% end %>
+                    </td>
+                </tr>
+                <% @item.item_prices.each do |ip| %>
+                	<tr>
+                    	<td>size</td>
+                    	<td><%= ip.size.size_name %></td>
+                    	<td><%= ip.size.diameter %></td>
+                        <td>
+                            <p style="font-size: 16px; ">
+                            	<%= ip.price %>円
+                              	<span style="font-size: 10px">(税抜)</span>
+                            </p>
+                        </td>
+                	</tr>
+                <% end %>
+                <%= form_for([@item, @cart_item_price]) do |f| %>
+                    <tr>
+                        <td colspan="2">サイズをお選びください</td>
+                        <td colspan="2">
+                            <%= f.collection_select :item_price_id, @item.item_prices, :id, :view_price_and_size, {}, class: "form-control" %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">数量をお選びください</td>
+                        <td colspan="2">
+                            <%= f.number_field :count, class: "form-control", min: "1", value: "1" %>
+                        </td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <p style="font-size: 10px">
+                                メッセージプレートが必要な場合は<br>
+                                こちらにご記入をお願いいたします。
+                            </p>
+                        </td>
+                        <td colspan="2">
+                            <%= f.text_field :message, class: "form-control" %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <% if admin_signed_in? %>
+                                <p style="text-align: right">
+                                    <% if @item.status == "販売中" %>
+                                        <span style="font-size: 30px"><%= @item.status %></span>
+                                    <% else %>
+                                        <span style="font-size: 30px; color: red"><%= @item.status %></span>
+                                    <% end %>
+                                    <%= link_to "edit", edit_item_path(@item.id), class: "edit pull-right" %>
+                                </p>
+                            <% elsif user_signed_in? %>
+                                <%= f.submit "カートに入れる", class: "create pull-right" %>
+                            <% else %>
+                            <%= link_to "カートに入れる", new_user_session_path, class: "create pull-right" %>
+                            <% end %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <%= link_to "back to index", items_path, class:"button pull-right"  %>
+    </div>
+</div>
+

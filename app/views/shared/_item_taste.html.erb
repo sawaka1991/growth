@@ -1,0 +1,30 @@
+<div class="item_taste_form">
+	<% if flash[:taste_error] %>
+    	<div class="flash"><%= flash[:taste_error] %></div>
+	<% end %>
+	<%= form_for([item, item_taste]) do |t| %>
+		<div class="form-group">
+			<label for="taste">テイスト：</label>
+			<div id="taste">
+				<%= t.collection_select :taste_id, Taste.all, :id, :taste_name %>
+      		</div>
+			<%= t.submit "create", class: "create pull-right" %>
+		</div>
+	<% end %>
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>material</th>
+			<th>delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% item_tastes.each do |it| %>
+			<tr>
+				<td><%= it.taste.taste_name %></td>
+				<td><%= link_to "delete", item_item_tastes_path(item_id: item.id, id: it), method: :delete, class: "delete" %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

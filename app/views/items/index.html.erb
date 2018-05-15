@@ -1,0 +1,408 @@
+<% if admin_signed_in? %>
+	<div class="container">
+		<ul class="nav nav-tabs" style="margin-top: 50px;">
+			<li class="active"><a data-toggle="tab" href="#sell">販売中</a></li>
+			<li><a data-toggle="tab" href="#stop">販売中止</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="sell" class="tab-pane fade in active" style="background-color: #ffffffa6; padding: 10px">
+				<table class="table">
+	                <caption><h2 style="text-align: center">販売中</h2></caption>
+	                <thead>
+	                    <tr>
+	                        <th>image</th>
+	                        <th>item name</th>
+	                        <th>allergie</th>
+	                        <th>taste</th>
+	                        <th>introduction</th>
+	                        <th>price</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                	<% ok = @all_items.where(status: 0) %>
+	                	<% ok.each do |item| %>
+	                        <tr>
+	                            <td>
+	                        		<% item.item_images.each_with_index do |itemimage, i| %>
+	                                    <% if i == 0 %>
+	                                    	<%= link_to item_path(item) do %>
+	                                    		<%= attachment_image_tag itemimage, :image, class: "index-image" %>
+	                                    	<% end %>
+	                                    <% end %>
+	                        		<% end %>
+	                            </td>
+	                            <td style="width: 200px">
+	                            	<%= link_to item_path(item) do %>
+	                                	<%= item.item_name %>
+	                                <% end %>
+	                            </td>
+	                            <td style="width: 100px">
+	                            	<% item.allergies.each do |allergy| %>
+	                            		<%= allergy.material.material_name %>
+	                            	<% end %>
+	                            </td>
+	                            <td>
+	                            	<% item.item_tastes.each do |taste| %>
+	                            		<%= taste.taste.taste_name %>
+	                            	<% end %>
+	                            </td>
+	                            <td>
+	                            	<%= item.introduction %>
+	                            </td>
+	                            <td style="width: 200px">
+	                            	<% item.item_prices.each do |price| %>
+	                            		<table>
+	                            			<tr>
+	                            				<td style="width: 70px"><%= price.size.size_name %></td>
+	                            				<td style="width: 70px"><%= price.size.diameter %></td>
+	                            				<td style="width: 70px"><%= price.price %>円</td>
+	                            			</tr>
+	                            		</table>
+	                            	<% end %>
+	                            </td>
+	                        </tr>
+	                	<% end %>
+	                </tbody>
+	            </table>
+	        </div>
+	        <div id="stop" class="tab-pane fade" style="background-color: #ffffffa6; padding: 10px">
+	        	<table class="table">
+	                <caption><h2 style="text-align: center">販売中止</h2></caption>
+	                <thead>
+	                    <tr>
+	                        <th>image</th>
+	                        <th>item name</th>
+	                        <th>allergie</th>
+	                        <th>taste</th>
+	                        <th>introduction</th>
+	                        <th>price</th>
+	                    </tr>
+	                </thead>
+	               	<tbody>
+	               		<% no = @all_items.where(status: 1) %>
+	                	<% no.each do |item| %>
+	                        <tr>
+	                            <td>
+	                        		<% item.item_images.each_with_index do |itemimage, i| %>
+	                                    <% if i == 0 %>
+	                                    	<%= link_to item_path(item) do %>
+	                                    		<%= attachment_image_tag itemimage, :image, class: "index-image" %>
+	                                    	<% end %>
+	                                    <% end %>
+	                        		<% end %>
+	                            </td>
+	                            <td style="width: 200px">
+	                            	<%= link_to item_path(item) do %>
+	                                    <%= item.item_name %>
+	                                <% end %>
+	                            </td>
+	                            <td style="width: 100px">
+	                            	<% item.allergies.each do |allergy| %>
+	                            		<%= allergy.material.material_name %>
+	                            	<% end %>
+	                            </td>
+	                            <td>
+	                            	<% item.item_tastes.each do |taste| %>
+	                            		<%= taste.taste.taste_name %>
+	                            	<% end %>
+	                            </td>
+	                            <td>
+	                            	<%= item.introduction %>
+	                            </td>
+	                            <td style="width: 200px">
+	                            	<% item.item_prices.each do |price| %>
+	                            		<table>
+	                            			<tr>
+	                            				<td style="width: 70px"><%= price.size.size_name %></td>
+	                            				<td style="width: 70px"><%= price.size.diameter %></td>
+	                            				<td style="width: 70px"><%= price.price %>円</td>
+	                            			</tr>
+	                            		</table>
+	                            	<% end %>
+	                            </td>
+	                        </tr>
+	                	<% end %>
+	                </tbody>
+	            </table>
+	        </div>
+    	</div>
+	</div>
+<% else %>
+  <!-- タブメニュー -->
+  	<div class="container item-index">
+	  	<ul class="nav nav-tabs" style="margin-top: 50px">
+	    	<li class="active">
+	    		<a data-toggle="tab" href="#home">entremets</a>
+	    	</li>
+	    	<li>
+	    		<a data-toggle="tab" href="#menu1">puti</a>
+	    	</li>
+	    	<li>
+	    		<a data-toggle="tab" href="#menu2">other</a>
+	    	</li>
+	    	<li>
+	    		<a data-toggle="tab" href="#menu3">goots</a>
+	    	</li>
+	  	</ul>
+		<div class="tab-content">
+	    	<div id="home" class="tab-pane fade in active">
+	    		<div class="container" style="margin-bottom: 100px; padding: 30px; background-color: #ffffffa6;">
+	    			<div class="col-xs-6">
+	    				<div class="head-line">entremets</div>
+	    			</div>
+	    			<div class="col-xs-6" style="padding-top: 30px">
+		      			<h4>SEARCH</h4>
+		      			<%= render 'shared/search_form' %>
+	    			</div>
+		    		<% hole = @items.where(type: 0) %>
+		      		<% hole.each do |item| %>
+		      			<%= link_to item_path(item) do %>
+		      				<% item.item_images.each_with_index do |ii,i| %>
+		      					<% if i == 0 %>
+		      						<div class="item-box">
+		      							<img class="item-pic" style="background-image: <%= attachment_image_tag ii, :image; %>
+						                <div class="mask">
+						                   	<div class="caption">
+						                       	<%= item.item_name %>
+						                   	</div>
+						                </div>
+						            </div>
+			            		<% end %>
+		      				<% end %>
+		      			<% end %>
+		      		<% end %>
+			    </div>
+			</div>
+
+	      	<div id="menu1" class="tab-pane fade">
+	      		<div class="container" style="margin-bottom: 100px; background-color: #ffffffa6; padding: 30px">
+		    		<div class="col-xs-6">
+		    			<div class="head-line">PUTI</div>
+		    		</div>
+		    		<div class="col-xs-6" style="padding-top: 30px">
+		      			<h4>SEARCH</h4>
+		      			<%= render 'shared/search_form' %>
+					</div>
+					<% puti = @items.where(type: 1) %>
+		      		<% puti.each do |item| %>
+	      			<%= link_to item_path(item) do %>
+	      				<% item.item_images.each_with_index do |ii,i| %>
+	      					<% if i == 0 %>
+	      						<div class="item-box">
+	      							<img class="item-pic" style="background-image: <%= attachment_image_tag ii, :image; %>
+					                <div class="mask">
+					                   	<div class="caption">
+					                       	<%= item.item_name %>
+					                   	</div>
+					                </div>
+					            </div>
+		            		<% end %>
+	      				<% end %>
+	      			<% end %>
+	      		<% end %>
+		  		</div>
+		  	</div>
+	  		<div id="menu2" class="tab-pane fade">
+	  			<div class="container" style="margin-bottom: 100px; background-color: #ffffffa6; padding: 30px">
+		    		<div class="col-xs-6">
+		    			<div class="head-line">OTHER</div>
+		    		</div>
+		    		<div class="col-xs-6" style="padding-top: 30px">
+		      			<h4>SEARCH</h4>
+		      			<%= render 'shared/search_form' %>
+					</div>
+					<% other = @items.where(type: 2) %>
+		      		<% other.each do |item| %>
+	      			<%= link_to item_path(item) do %>
+	      				<% item.item_images.each_with_index do |ii,i| %>
+	      					<% if i == 0 %>
+	      						<div class="item-box">
+	      							<img class="item-pic" style="background-image: <%= attachment_image_tag ii, :image; %>
+					                <div class="mask">
+					                   	<div class="caption">
+					                       	<%= item.item_name %>
+					                   	</div>
+					                </div>
+					            </div>
+		            		<% end %>
+	      				<% end %>
+	      			<% end %>
+	      		<% end %>
+		  		</div>
+		  	</div>
+
+	  		<div id="menu3" class="tab-pane fade">
+	  			<div class="container" style="margin-bottom: 100px; background-color: #ffffffa6; padding: 30px">
+		    		<div class="col-xs-6">
+		    			<div class="head-line">GOOTS</div>
+		    		</div>
+		    		<div class="col-xs-6" style="padding-top: 30px">
+		      			<h4>SEARCH</h4>
+		      			<%= render 'shared/search_form' %>
+					</div>
+					<% goots = @items.where(type: 4) %>
+		      		<% goots.each do |item| %>
+	      			<%= link_to item_path(item) do %>
+	      				<% item.item_images.each_with_index do |ii,i| %>
+	      					<% if i == 0 %>
+	      						<div class="item-box">
+	      							<img class="item-pic" style="background-image: <%= attachment_image_tag ii, :image; %>
+					                <div class="mask">
+					                   	<div class="caption">
+					                       	<%= item.item_name %>
+					                   	</div>
+					                </div>
+					            </div>
+		            		<% end %>
+	      				<% end %>
+	      			<% end %>
+	      		<% end %>
+		  		</div>
+		  	</div>
+		</div>
+	</div>
+	<div class="item-index-mobile">
+		  <div class="top-box"></div>
+		<div class="container">
+			<div class="tabs">
+				<div class="tab-2">
+				    <label for="tab2-1">all</label>
+				    <input id="tab2-1" name="tabs-two" type="radio" checked="checked">
+				    <div>
+				       	<div class="head-line">all</div>
+			      		<% @items.each do |item| %>
+			      			<%= link_to item_path(item) do %>
+			      				<% item.item_images.each_with_index do |ii,i| %>
+			      					<% if i == 0 %>
+			      						<div class="item-box">
+			      							<div class="item-pic">
+			      								<%= link_to item_path(item) do %>
+				      								<%= attachment_image_tag ii, :image %>
+				      							<% end %>
+				      						</div>
+				      						<div class="item-text">
+				      							<%= link_to item_path(item) do %>
+					      							<p><%= item.item_name %></p>
+					      						<% end %>
+				      						</div>
+							            </div>
+				            		<% end %>
+			      				<% end %>
+			      			<% end %>
+			      		<% end %>
+				    </div>
+				</div>
+				<div class="tab-2">
+				    <label for="tab2-2">entremets</label>
+				    <input id="tab2-2" name="tabs-two" type="radio">
+				    <div>
+				      	<div class="head-line">entremets</div>
+			            <% hole.each do |item| %>
+			      			<%= link_to item_path(item) do %>
+			      				<% item.item_images.each_with_index do |ii,i| %>
+			      					<% if i == 0 %>
+			      						<div class="item-box">
+			      							<div class="item-pic">
+			      								<%= link_to item_path(item) do %>
+				      								<%= attachment_image_tag ii, :image %>
+				      							<% end %>
+				      						</div>
+				      						<div class="item-text">
+				      							<%= link_to item_path(item) do %>
+					      							<p><%= item.item_name %></p>
+					      						<% end %>
+				      						</div>
+							            </div>
+				            		<% end %>
+			      				<% end %>
+			      			<% end %>
+			      		<% end %>
+				    </div>
+				</div>
+				<div class="tab-2">
+				    <label for="tab2-3">puti</label>
+				    <input id="tab2-3" name="tabs-two" type="radio">
+				    <div>
+				      	<div class="head-line">puti</div>
+			            <% puti.each do |item| %>
+			      			<%= link_to item_path(item) do %>
+			      				<% item.item_images.each_with_index do |ii,i| %>
+			      					<% if i == 0 %>
+			      						<div class="item-box">
+			      							<div class="item-pic">
+			      								<%= link_to item_path(item) do %>
+				      								<%= attachment_image_tag ii, :image %>
+				      							<% end %>
+				      						</div>
+				      						<div class="item-text">
+				      							<%= link_to item_path(item) do %>
+					      							<p><%= item.item_name %></p>
+					      						<% end %>
+				      						</div>
+							            </div>
+				            		<% end %>
+			      				<% end %>
+			      			<% end %>
+			      		<% end %>
+				    </div>
+				</div>
+				<div class="tab-2">
+				    <label for="tab2-4">other</label>
+				    <input id="tab2-4" name="tabs-two" type="radio">
+				    <div>
+				      	<div class="head-line">other</div>
+			            <% other.each do |item| %>
+			      			<%= link_to item_path(item) do %>
+			      				<% item.item_images.each_with_index do |ii,i| %>
+			      					<% if i == 0 %>
+			      						<div class="item-box">
+			      							<div class="item-pic">
+			      								<%= link_to item_path(item) do %>
+				      								<%= attachment_image_tag ii, :image %>
+				      							<% end %>
+				      						</div>
+				      						<div class="item-text">
+				      							<%= link_to item_path(item) do %>
+					      							<p><%= item.item_name %></p>
+					      						<% end %>
+				      						</div>
+							            </div>
+				            		<% end %>
+			      				<% end %>
+			      			<% end %>
+			      		<% end %>
+				    </div>
+				</div>
+				<div class="tab-2">
+				    <label for="tab2-4">goots</label>
+				    <input id="tab2-4" name="tabs-two" type="radio">
+				    <div>
+				      	<div class="head-line">goots</div>
+			            <% goots.each do |item| %>
+			      			<%= link_to item_path(item) do %>
+			      				<% item.item_images.each_with_index do |ii,i| %>
+			      					<% if i == 0 %>
+			      						<div class="item-box">
+			      							<div class="item-pic">
+			      								<%= link_to item_path(item) do %>
+				      								<%= attachment_image_tag ii, :image %>
+				      							<% end %>
+				      						</div>
+				      						<div class="item-text">
+				      							<%= link_to item_path(item) do %>
+					      							<p><%= item.item_name %></p>
+					      						<% end %>
+				      						</div>
+							            </div>
+				            		<% end %>
+			      				<% end %>
+			      			<% end %>
+			      		<% end %>
+					</div>
+			    </div>
+			 </div>
+		</div>
+	</div>
+<% end %>
+
+

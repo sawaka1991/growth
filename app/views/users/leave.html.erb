@@ -1,0 +1,25 @@
+
+
+<div class="top-box"></div>
+<div class="container" style="background-color: #ffffff8c;">
+	<div class="item-index-mobile">
+        <div class="wrap">
+            logo
+        </div>
+        <div class="side">
+            <%= render 'shared/userside', user: @user, friend: @friend %>
+        </div>
+    </div>
+    <div class="item-index">
+        <%= render 'shared/userside', user: @user, friend: @friend %>
+    </div>
+	<div class="col-lg-9 col-xs-12" style="padding-top: 100px">
+		<h3>
+			退会すると、全ての情報が失われ、<br>
+			ログインできなくなりますが、よろしいですか？
+		</h3>
+			※ご予約中の商品がある場合は、ご予約取り消し扱いとさせていただきますので注意ください。
+			<br>
+		<%= button_to "退会する", user_path(@user), data: { confirm: "本当に退会しますか?" }, method: :delete, class: "delete" %>
+	</div>
+</div>

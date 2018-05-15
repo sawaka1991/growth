@@ -1,0 +1,228 @@
+<div class="top-box"></div>
+<div class="container"  style="background-color: #ffffff8c; padding-bottom: 30px">
+	<div class="item-index-mobile">
+        <div class="wrap">
+            logo
+        </div>
+        <div class="side">
+            <%= render 'shared/userside', user: @user, friend: @friend %>
+        </div>
+    </div>
+    <div class="item-index">
+        <%= render 'shared/userside', user: @user, friend: @friend %>
+    </div>
+    <div class="col-lg-9 col-xs-12">
+    	<div class="head-line">
+    		My Memory
+    	</div>
+	  	<ul class="nav nav-tabs" style="margin-top: 50px">
+	    	<li class="active">
+	    		<a data-toggle="tab" href="#all">all</a>
+	    	</li>
+	    	<li>
+	    		<a data-toggle="tab" href="#family">family</a>
+	    	</li>
+	    	<li>
+	    		<a data-toggle="tab" href="#friends">friends</a>
+	    	</li>
+	    	<li>
+	    		<a data-toggle="tab" href="#company">company</a>
+	    	</li>
+	    	<li>
+	    		<a data-toggle="tab" href="#other">other</a>
+	    	</li>
+	  	</ul>
+	  	<div class="col-lg-12">
+			<div class="tab-content" style="padding-top: 30px">
+		    	<div id="all" class="tab-pane fade in active">
+			        <% @memories.each_with_index do |m, i| %>
+			        	<%= content_tag(:div, class: ["f-memory"], "data-toggle" => "modal", "data-target" => "#myModal#{m.id}") do %>
+			        		<img class="memory-image" style="background-image: <%= attachment_image_tag m, :image; %>
+			        		<table class="table item-index">
+			        			<tr>
+			        				<td>title</td>
+			        				<td><%= m.title %></td>
+			        			</tr>
+			        			<tr>
+			        				<td>date</td>
+			        				<td><%= m.created_at.strftime("%y.%m.%d") %></td>
+			        			</tr>
+			        		</table>
+			        		<div class="memory-index-mobile">
+				        		<table>
+				        			<tr>
+				        				<td><%= m.title %></td>
+				        			</tr>
+				        			<tr>
+				        				<td><%= m.created_at.strftime("%y.%m.%d") %></td>
+				        			</tr>
+				        		</table>
+				        	</div>
+			        	<% end %>
+			        <% end %>
+			    </div>
+			    <div id="family" class="tab-pane fade">
+			    	<% family = @friends.where(group: 0) %>
+		    		<% family.each do |fami| %>
+				    	<% fami.memories.each_with_index do |m, i| %>
+				        	<%= content_tag(:div, class: ["f-memory"], "data-toggle" => "modal", "data-target" => "#myModal#{m.id}") do %>
+				        		<img class="memory-image" style="background-image: <%= attachment_image_tag m, :image; %>
+				        		<table class="table item-index">
+				        			<tr>
+				        				<td>title</td>
+				        				<td><%= m.title %></td>
+				        			</tr>
+				        			<tr>
+				        				<td>date</td>
+				        				<td><%= m.created_at.strftime("%y.%m.%d") %></td>
+				        			</tr>
+				        		</table>
+				        		<div class="memory-index-mobile">
+					        		<table>
+					        			<tr>
+					        				<td><%= m.title %></td>
+					        			</tr>
+					        			<tr>
+					        				<td><%= m.created_at.strftime("%y.%m.%d") %></td>
+					        			</tr>
+					        		</table>
+					        	</div>
+				        	<% end %>
+				        <% end %>
+			        <% end %>
+			    </div>
+			    <div id="friends" class="tab-pane fade">
+			    	<% friends = @friends.where(group: 1) %>
+		    		<% friends.each do |fre| %>
+				    	<% fre.memories.each_with_index do |m, i| %>
+				        	<%= content_tag(:div, class: ["f-memory"], "data-toggle" => "modal", "data-target" => "#myModal#{m.id}") do %>
+				        		<img class="memory-image" style="background-image: <%= attachment_image_tag m, :image; %>
+				        		<table class="table item-index">
+				        			<tr>
+				        				<td>title</td>
+				        				<td><%= m.title %></td>
+				        			</tr>
+				        			<tr>
+				        				<td>date</td>
+				        				<td><%= m.created_at.strftime("%y.%m.%d") %></td>
+				        			</tr>
+				        		</table>
+				        		<div class="memory-index-mobile">
+					        		<table>
+					        			<tr>
+					        				<td><%= m.title %></td>
+					        			</tr>
+					        			<tr>
+					        				<td><%= m.created_at.strftime("%y.%m.%d") %></td>
+					        			</tr>
+					        		</table>
+					        	</div>
+				        	<% end %>
+				        <% end %>
+			        <% end %>
+			    </div>
+			    <div id="company" class="tab-pane fade">
+			    	<% company = @friends.where(group: 2) %>
+		    		<% company.each do |com| %>
+				    	<% com.memories.each_with_index do |m, i| %>
+				        	<%= content_tag(:div, class: ["f-memory"], "data-toggle" => "modal", "data-target" => "#myModal#{m.id}") do %>
+				        		<img class="memory-image" style="background-image: <%= attachment_image_tag m, :image; %>
+				        		<table class="table item-index">
+				        			<tr>
+				        				<td>title</td>
+				        				<td><%= m.title %></td>
+				        			</tr>
+				        			<tr>
+				        				<td>date</td>
+				        				<td><%= m.created_at.strftime("%y.%m.%d") %></td>
+				        			</tr>
+				        		</table>
+				        		<div class="memory-index-mobile">
+					        		<table>
+					        			<tr>
+					        				<td><%= m.title %></td>
+					        			</tr>
+					        			<tr>
+					        				<td><%= m.created_at.strftime("%y.%m.%d") %></td>
+					        			</tr>
+					        		</table>
+					        	</div>
+				        	<% end %>
+				        <% end %>
+			        <% end %>
+			    </div>
+			    <div id="other" class="tab-pane fade">
+			    	<% other = @friends.where(group: 3) %>
+		    		<% other.each do |oth| %>
+				    	<% oth.memories.each_with_index do |m, i| %>
+				        	<%= content_tag(:div, class: ["f-memory"], "data-toggle" => "modal", "data-target" => "#myModal#{m.id}") do %>
+				        		<img class="memory-image" style="background-image: <%= attachment_image_tag m, :image; %>
+				        		<table class="table item-index">
+				        			<tr>
+				        				<td>title</td>
+				        				<td><%= m.title %></td>
+				        			</tr>
+				        			<tr>
+				        				<td>date</td>
+				        				<td><%= m.created_at.strftime("%y.%m.%d") %></td>
+				        			</tr>
+				        		</table>
+				        		<div class="memory-index-mobile">
+					        		<table>
+					        			<tr>
+					        				<td><%= m.title %></td>
+					        			</tr>
+					        			<tr>
+					        				<td><%= m.created_at.strftime("%y.%m.%d") %></td>
+					        			</tr>
+					        		</table>
+					        	</div>
+				        	<% end %>
+				        <% end %>
+			        <% end %>
+			    </div>
+			</div>
+		</div>
+        <!-- Modal -->
+        <% @memories.each_with_index do |m, i| %>
+			<%= content_tag(:div, class: ["modal", "fade"], id: "myModal#{m.id}", role:"dialog") do %>
+			    <div class="modal-dialog">
+			      <!-- Modal content-->
+			      	<div class="modal-content">
+			        	<div class="modal-header">
+			          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+			        	</div>
+			        	<div class="modal-body">
+			        		<div class="memory-pic">
+			        			<%= attachment_image_tag m, :image %>
+			        		</div>
+							<table class="table">
+								<tr>
+									<td>title</td>
+									<td><%= m.title %></td>
+								</tr>
+								<tr>
+									<td>date</td>
+									<td><%= m.created_at.strftime("%Y.%M.%D") %></td>
+								</tr>
+								<tr>
+									<td>name</td>
+									<td><%= m.friend.name %></td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<%= m.body %>
+									</td>
+								</tr>
+							</table>
+						</div>
+			        	<div class="modal-footer">
+			        		<button class="button pull-right" data-dismiss="modal">close</button>
+			        	</div>
+			    	</div>
+			    </div>
+			<% end %>
+		<% end %>
+	</div>
+	<%= link_to "back to BIRTHDAY list", user_top_path(current_user.id), class: "button pull-right", style: "margin-top: 20px" %>
+</div>

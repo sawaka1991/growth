@@ -1,0 +1,64 @@
+<div class="col-lg-3 col-xs-12" style="padding-top: 40px">
+    <div class="user-headline">my menu</div>
+    <dl>
+    	<dd>
+    		<%= link_to "birthday list", user_top_path(current_user.id), class: "user-nav-item" %>
+    	</dd>
+    	<dd>
+    		<%= link_to "my friends", user_friends_path(current_user.id), class: "user-nav-item" %>
+    	</dd>
+    	<dd>
+	       	<%= link_to "history", user_history_path(current_user), class: "user-nav-item" %>
+	    </dd>
+	    <dd>
+	    	<%= link_to "user", user_path(user), class: "user-nav-item" %>
+	    </dd>
+	    <dd>
+	    	<%= link_to "my memory", user_memory_path(user), class: "user-nav-item"  %>
+	    </dd>
+    </dl>
+    <div class="side-form">
+        <div class="user-headline">add friend</div>
+        <% if @friend.errors.any? %>
+            <div id="error_explanation" class="text-center">
+                <h5><%= @friend.errors.count %>件のエラーが発生しました。</h5>
+                <% @friend.errors.full_messages.each do |message| %>
+                    <h6><%= message %></h6>
+                <% end %>
+            </div>
+        <% end %>
+        <%= form_for([user, friend]) do |f| %>
+        	<div class="form-group">
+				<label for="group">group：</label>
+				<%= f.select :group,Friend.groups.keys, id:"group" %>
+			</div>
+			<div class="form-group">
+				<label for="friend-image">image:</label>
+				<%= f.attachment_field :image, id:"friend-image" %>
+			</div>
+			<div class="form-group">
+				<label for="name">name:</label>
+				<%= f.text_field :name, id:"name", class:"form-control" %>
+			</div>
+			<div class="form-group">
+				<label for="birth">birthday:</label>
+				 <% now = Time.current %>
+				<%= f.date_field :birthday, id:"birth", class: "form-control",  max: "#{now.since(1.days)}" %>
+			</div>
+			<div class="form-group">
+				<label for="like">like it:</label>
+				<div id="like">
+					<%= f.fields_for :likes do |like| %>
+						<ul style="list-style: none">
+							<%= like.collection_check_boxes(:taste_id, Taste.all, :id, :taste_name,include_hidden: false) do |fl| %>
+								<li><%= fl.label {fl.check_box + fl.text} %></li>
+							<% end %>
+						</ul>
+					<% end %>
+	      		</div>
+			</div>
+			<%= f.submit "create", class:"button pull-right" %>
+		<% end %>
+	</div>
+</div>
+

@@ -1,0 +1,40 @@
+<div class="top-box"></div>
+<div class="container" style="background-color: #ffffff8c; padding-bottom: 30px">
+	<div class="head-line">
+		<%= @friend.name %>'s likes'
+	</div>
+	<div class="col-lg-4 col-lg-offset-4 like-form col-xs-10 col-xs-offset-1" >
+		<% if flash[:error] %>
+	        <div class="flash"><%= flash[:error] %></div>
+		<% end %>
+		<%= form_for([@user, @friend, @like]) do |f| %>
+			<div class="form-gourp">
+				<label id="like"> choice like</label>
+				<%= f.collection_select :taste_id, Taste.all, :id, :taste_name, id:"create" %>
+			</div>
+			<div class="form-group" style="font-size: 8px">
+				<%= f.submit "like it", class:"create pull-right" %>
+			</div>
+		<% end %>
+	</div>
+	<div class="col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1">
+		<table class="table" style="text-align: center">
+			<caption>I like it</caption>
+			<thead>
+				<tr>
+					<th>likes</th>
+					<th>delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @friend.likes.each do |like| %>
+					<tr>
+						<td><%= like.taste.taste_name %></td>
+						<td><%= link_to "delete", user_friend_like_path(user_id: current_user.id, friend_id: @friend.id, id: like.id), method: :delete, class:"delete" %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<%= link_to "back to FRIEND page", user_friend_path(user_id: current_user.id, id: @friend.id), class:"button pull-right" %>
+	</div>
+</div>

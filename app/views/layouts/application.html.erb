@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Growth</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <html lang="en">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--      <script src="jquery-3.3.1.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="application.css"> -->
+            <!-- jQuery.jsの読み込み -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+     <%#= javascript_include_tag 'application' %>
+    <title>growth</title>
+</head>
+
+  <!-- header -->
+<div class="home">
+    <% if admin_signed_in? %>
+        <header>
+            <div class="admin">
+                <div class="logo">
+                    <div id="top">GROWTH</div>
+                </div>
+                <div class="nav">
+                    <div style="line-height: 100px; float: left">|</div>
+                    <%= link_to "追加", sizes_path, class: "nav-list-item" %>
+                    <div style="line-height: 100px; float: left">|</div>
+                    <%= link_to "商品追加", new_item_path, class: "nav-list-item" %>
+                    <div style="line-height: 100px; float: left">|</div>
+                    <%= link_to "予約リスト", histories_path, class: "nav-list-item" %>
+                    <div style="line-height: 100px; float: left">|</div>
+                    <%= link_to "問い合わせ", asks_path, class: "nav-list-item" %>
+                    <div style="line-height: 100px; float: left">|</div>
+                    <%= link_to "商品一覧", items_path, class: "nav-list-item" %>
+                    <div style="line-height: 100px; float: left">|</div>
+                    <%= link_to "Thank", reviews_path, class: "nav-list-item" %>
+                    <div style="line-height: 100px; float: left">|</div>
+                    <%= link_to "news", informations_path, class: "nav-list-item"  %>
+                    <div style="line-height: 100px; float: left">|</div>
+                    <%= link_to "admins", admins_path, class: "nav-list-item"  %>
+                    <div style="line-height: 100px; float: left">|</div>
+                    <%= link_to "LOGOUT", destroy_admin_session_path, method: :delete, class: "nav-list-item" %>
+                    <div style="line-height: 100px; float: left">|</div>
+
+                </div>
+            </div>
+        </header>
+    <% else %>
+        <header>
+            <div class="container clearfix">
+                <div class="logo">
+                    <div id="top">GROWTH</div>
+                </div>
+                <div class="nav-box">
+                    <ul id="normal" class="dropmenu">
+                        <div style="line-height: 100px; float: left">|</div>
+                        <%= link_to root_path, class: "nav-list-item" do %>
+                            <span class="en">HOME</span>
+                            <span class="jp">
+                                <div class="fa fa-home" style="font-size: 30px"></div>
+                            </span>
+                        <% end %>
+                        <div style="line-height: 100px; float: left">|</div>
+                        <%= link_to about_path, class: "nav-list-item" do %>
+                            <span class="en">ABOUT</span>
+                            <span class="jp">growthについて</span>
+                        <% end %>
+                        <div style="line-height: 100px; float: left">|</div>
+                        <%= link_to items_path, class: "nav-list-item" do %>
+                            <span class="en">MENU</span>
+                            <span class="jp">メニュー</span>
+                        <% end %>
+
+                        <% if user_signed_in? %>
+                            <div style="line-height: 100px; float: left">|</div>
+                            <li>
+                                <%= link_to user_top_path(current_user.id), class: "nav-list-item", style: "margin-top: 28px;" do %>
+                                    <span class="en">MY MENU</span>
+                                    <span class="jp">登録情報</span>
+                                <% end %>
+                                <ul>
+                                    <li><%= link_to "my friends", user_friends_path(current_user.id) %></li>
+                                    <li><%= link_to "history", user_history_path(current_user.id) %></li>
+                                    <li><%= link_to "user", user_path(current_user.id) %></li>
+                                    <li><%= link_to "my memory", user_memory_path(current_user.id) %></li>
+                                </ul>
+                            </li>
+                            <div style="line-height: 100px; float: left">|</div>
+                            <%= link_to destroy_user_session_path, method: :delete, class: "nav-list-item" do %>
+                                <span class="en">LOGOUT</span>
+                                <span class="jp">ログアウト</span>
+                            <% end %>
+                            <div style="line-height: 100px; float: left">|</div>
+                            <% if Cart.where(user_id: current_user).present? %>
+                                <%= link_to cart_path(current_user), class: "nav-list-item" do  %>
+                                    <span class="en">CART
+                                        <% if current_user.cart.cart_item_prices.count != 0 %>
+                                            <span style="font-size: 20px; color: #ffa500d9">
+                                                &nbsp;<%= current_user.cart.cart_item_prices.count %>
+                                            </span>点
+                                        <% end %>
+                                    </span>
+                                    <span class="jp">
+                                        <div class="fa fa-cart-plus" style="font-size: 30px"></div>
+                                    </span>
+                                <% end %>
+                            <% else %>
+                                <%= link_to root_path, class: "nav-list-item" do %>
+                                    <span class="en">CART</span>
+                                    <span class="jp">
+                                        <div class="fa fa-cart-plus" style="font-size: 30px"></div>
+                                    </span>
+                                <% end %>
+                            <% end %>
+                        <% else %>
+                            <div style="line-height: 100px; float: left">|</div>
+                            <%= link_to new_user_session_path, class: "nav-list-item" do %>
+                                <span class="en">LOGIN</span>
+                                <span class="jp">ログイン</span>
+                            <% end %>
+                            <div style="line-height: 100px; float: left">|</div>
+                            <%= link_to new_user_registration_path, class: "nav-list-item" do %>
+                                <span class="en">SIGN UP</span>
+                                <span class="jp">新規登録</span>
+                            <% end %>
+                            <div style="line-height: 100px; float: left">|</div>
+                            <%= link_to new_user_registration_path, class: "nav-list-item" do  %>
+                                <span class="en">CART</span>
+                                <span class="jp">
+                                    <div class="fa fa-cart-plus" style="font-size: 30px"></div>
+                                </span>
+                            <% end %>
+                        <% end %>
+                        <div style="line-height: 100px; float: left">|</div>
+                        <%= link_to reviews_path, class: "nav-list-item" do %>
+                            <span class="en">THANKS</span>
+                            <span class="jp">思い出</span>
+                        <% end %>
+                        <div style="line-height: 100px; float: left">|</div>
+                    </ul>
+                </div>
+            </div>
+            <div class="mobile clearfix">
+                 <nav class="menu clearfix">
+                     <div class="menu1"></div>
+                     <div class="menu2"></div>
+                     <div class="menu3"></div>
+                </nav>
+                <div id="menu">
+                    <div><%= link_to "HOME", root_path, class: "nav-list-item" %></div>
+                    <div><%= link_to "ABOUT", about_path, class: "nav-list-item"%></div>
+                    <div><%= link_to "MENU", items_path, class: "nav-list-item"%></div>
+                    <% if user_signed_in? %>
+                        <div><%= link_to "MY MENU", user_top_path(current_user.id), class: "nav-list-item"%></div>
+                        <div><%= link_to "LOGOUT", destroy_user_session_path, method: :delete, class: "nav-list-item"%></div>
+                        <% if Cart.where(user_id: current_user).present? %>
+                            <div><%= link_to "CART", cart_path(current_user), class: "nav-list-item"%></div>
+                        <% else %>
+                            <div><%= link_to "CART", root_path, class: "nav-list-item" %></div>
+                        <% end %>
+                    <% else %>
+                        <div><%= link_to "SIGN UP", new_user_registration_path, class: "nav-list-item" %></div>
+                        <div><%= link_to "LOGIN", new_user_session_path, class: "nav-list-item" %></div>
+                        <div><%= link_to "CART", new_user_registration_path, class: "nav-list-item" %></div>
+                    <% end %>
+                    <div><%= link_to "THANK",reviews_path,  class: "nav-list-item"%></div>
+                </div>
+            </div>
+        </header>
+<% end %>
+    <body>
+        <%= yield %>
+        <footer>
+            <div class="footer-box clearfix">
+                <div class="footer-nav">
+                    <div class="footer-headline">GROWTH</div>
+                    <%= link_to "about GROWTH", about_path %><br>
+                    <%= link_to "お問い合わせ", new_ask_path %>
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-headline">RESREVE</div>
+                    <%= link_to "MENU", items_path %><br>
+                    <% if user_signed_in? %>
+                        <% if Cart.where(user_id: current_user).present? %>
+                            <%= link_to "CART", cart_path(current_user) %>
+                        <% else %>
+                            <%= link_to "CART", root_path %>
+                        <% end %>
+                    <% else %>
+                        <%= link_to "CART", new_user_registration_path %>
+                    <% end %>
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-headline">USER MENU</div>
+                    <% if user_signed_in? %>
+                        <%= link_to "my friends", user_friends_path(current_user.id) %><br>
+                        <%= link_to "history", user_history_path(current_user.id) %><br>
+                        <%= link_to "user", user_path(current_user.id) %><br>
+                        <%= link_to "my memory", user_memory_path(current_user.id) %><br>
+                        <%= link_to "LOGOUT", destroy_admin_session_path, method: :delete %>
+                    <% else %>
+                        <%= link_to "LOGIN", new_user_session_path %><br>
+                        <%= link_to "新規登録", new_user_registration_path %>
+                    <% end %>
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-headline">OTHER</div>
+                    <%= link_to "THANK",reviews_path %>
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-headline">SHOP</div>
+                    tel:０１２０−１１２−７２１<br>
+                    営業時間:１０:００〜１９:００<br>
+                    定休日:毎週火曜日
+                </div>
+            </div>
+    	       <div class="footer-c">©growth</div>
+        </footer>
+    </body>
+</html>

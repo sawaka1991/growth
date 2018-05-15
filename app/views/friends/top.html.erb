@@ -1,0 +1,32 @@
+<div class="top-box"></div>
+<div class="container" style="background-color: #ffffff8c;">
+    <div class="item-index-mobile">
+        <div class="wrap">
+            logo
+        </div>
+        <div class="side">
+            <%= render 'shared/userside', user: @user, friend: @friend %>
+        </div>
+    </div>
+    <div class="item-index">
+        <%= render 'shared/userside', user: @user, friend: @friend %>
+    </div>
+    <div class="col-lg-6 col-xs-12">
+        <div class="head-line">Happy BirthdaY!! <% now = Time.current %><%= now.strftime("%B") %></div>
+        <div class="bd">
+            <% @friend_m.each do |f| %>
+                <% date_format = "%Y%m%d"  %>
+                <% age = (Date.today.strftime(date_format).to_i - f.birthday.strftime(date_format).to_i) / 10000 %>
+                <% next_age = age + 1 %>
+                <%= link_to user_friend_path(user_id: current_user.id, id: f.id) do %>
+                    <section class="bd-f">
+                        <%= f.name %>
+                        <%= f.birthday.strftime("%Y/%m/%d") %>
+                        next <%= next_age %>years old
+                    </section>
+                <% end %>
+            <% end %>
+            <h1>本当はここにカレンダー欲しい</h1>
+        </div>
+    </div>
+</div>

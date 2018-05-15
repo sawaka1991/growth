@@ -1,0 +1,184 @@
+<div class="top-box"></div>
+<div class="container" style="background-color: #ffffff8c;">
+    <div class="item-index-mobile">
+        <div class="wrap">
+            logo
+        </div>
+        <div class="side">
+            <%= render 'shared/userside', user: @user, friend: @friend %>
+        </div>
+    </div>
+    <div class="item-index">
+        <%= render 'shared/userside', user: @user, friend: @friend %>
+    </div>
+    <div class="col-lg-9 col-xs-12 friend-index">
+        <div class="head-line">My Friends</div>
+        <table class="table ">
+            <% friends = @friends.where(group: 0) %>
+            <caption><h3>family</h3></caption>
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>birth</th>
+                    <th>next age</th>
+                    <th>like it</th>
+                    <th>show</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% friends.each do |friend| %>
+                <tr>
+                    <td style="font-size: 20px">
+                        <%= link_to user_friend_path(user_id: current_user.id, id: friend.id) do %>
+                        <div class="font">
+                            <%= friend.name %>
+                        </div>
+                        <% end %>
+                    </td>
+                    <td style="width: 150px"><%= friend.birthday.strftime("%Y.%m.%d") %></td>
+                    <td>
+                        <% date_format = "%Y%m%d"  %>
+                        <% age = (Date.today.strftime(date_format).to_i - friend.birthday.strftime(date_format).to_i) / 10000 %>
+                        <% next_age = age + 1 %>
+                        <%= next_age %>
+                    </td>
+                    <td>
+                        <% friend.likes.each do |like| %>
+                            <%= like.taste.taste_name %>/
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= link_to "show", user_friend_path(user_id: current_user.id, id: friend.id), class:"button" %>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <% friends = @friends.where(group: 1) %>
+            <caption><h3>friend</h3></caption>
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>birth</th>
+                    <th>next age</th>
+                    <th>like it</th>
+                    <th>show</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% friends.each do |friend| %>
+                <tr>
+                    <td style="font-size: 20px">
+                        <%= link_to user_friend_path(user_id: current_user.id, id: friend.id) do %>
+                        <div class="font">
+                            <%= friend.name %>
+                        </div>
+                        <% end %>
+                    </td>
+                    <td style="width: 150px"><%= friend.birthday %></td>
+                    <td>
+                        <% date_format = "%Y%m%d"  %>
+                        <% age = (Date.today.strftime(date_format).to_i - friend.birthday.strftime(date_format).to_i) / 10000 %>
+                        <% next_age = age + 1 %>
+                        <%= next_age %>
+                    </td>
+                    <td>
+                        <% friend.likes.each do |like| %>
+                            <%= like.taste.taste_name %>/
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= link_to "show", user_friend_path(user_id: current_user.id, id: friend.id), class:"button" %>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <% friends = @friends.where(group: 2) %>
+            <caption><h3>company</h3></caption>
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>birth</th>
+                    <th>next age</th>
+                    <th>like it</th>
+                    <th>show</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% friends.each do |friend| %>
+                <tr>
+                    <td style="font-size: 20px">
+                        <%= link_to user_friend_path(user_id: current_user.id, id: friend.id) do %>
+                        <div class="font">
+                            <%= friend.name %>
+                        </div>
+                        <% end %>
+                    </td>
+                    <td style="width: 150px"><%= friend.birthday %></td>
+                    <td>
+                        <% date_format = "%Y%m%d"  %>
+                        <% age = (Date.today.strftime(date_format).to_i - friend.birthday.strftime(date_format).to_i) / 10000 %>
+                        <% next_age = age + 1 %>
+                        <%= next_age %>
+                    </td>
+                    <td>
+                        <% friend.likes.each do |like| %>
+                            <%= like.taste.taste_name %>/
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= link_to "show", user_friend_path(user_id: current_user.id, id: friend.id), class:"button" %>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <% friends = @friends.where(group: 3) %>
+            <caption><h3>other</h3></caption>
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>birth</th>
+                    <th>next age</th>
+                    <th>like it</th>
+                    <th>show</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% friends.each do |friend| %>
+                <tr>
+                    <td style="font-size: 20px">
+                        <%= link_to user_friend_path(user_id: current_user.id, id: friend.id) do %>
+                        <div class="font">
+                            <%= friend.name %>
+                        </div>
+                        <% end %>
+                    </td>
+                    <td style="width: 150px"><%= friend.birthday %></td>
+                    <td>
+                        <% date_format = "%Y%m%d"  %>
+                        <% age = (Date.today.strftime(date_format).to_i - friend.birthday.strftime(date_format).to_i) / 10000 %>
+                        <% next_age = age + 1 %>
+                        <%= next_age %>
+                    </td>
+                    <td>
+                        <% friend.likes.each do |like| %>
+                            <%= like.taste.taste_name %>/
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= link_to "show", user_friend_path(user_id: current_user.id, id: friend.id), class:"button" %>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>

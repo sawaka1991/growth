@@ -1,0 +1,62 @@
+<div class="container">
+	<div class="reserve clearfix">
+		<table class="table">
+			<caption><h3 style="text-align: center">内容確認</h3></caption>
+			<tbody>
+				<tr>
+					<td>お問い合わせ内容</td>
+					<td><%= @about %></td>
+				</tr>
+				<tr>
+					<td>返信の返信の有無</td>
+					<td><%= @reply %></td>
+				</tr>
+				<tr>
+					<td>お名前</td>
+					<td><%= @name %></td>
+				</tr>
+				<tr>
+					<td>メールアドレス</td>
+					<td><%= @email %></td>
+				</tr>
+				<tr>
+					<td>内容</td>
+					<td><%= @body %></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<%= form_for(@ask) do |f| %>
+							<%= f.hidden_field :about, :value => @about %>
+							<%= f.hidden_field :reply, :value => @reply %>
+							<%= f.hidden_field :name, :value => @name %>
+							<%= f.hidden_field :email, :value => @email %>
+							<%= f.hidden_field :body, :value => @body %>
+							<button type="submit" class="create pull-right" data-toggle="modal" data-target="#myModal">
+								送信する
+	  						</button>
+						<% end %>
+					</td>
+			  	</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      	<div class="modal-content">
+        	<div class="modal-header">
+          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        </div>
+	        <div class="modal-body" style="text-align: center">
+	        	<p style="font-size: 50px; color: pink"><%= @name %>様</p>
+				お問い合わせを承りました。<br>
+				担当の者から改めてご返信させていただきますので、<br>
+				恐れ入りますが、もう少々お待ちください。
+		        <div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+		        </div>
+    		</div>
+		</div>
+	</div>
+</div>

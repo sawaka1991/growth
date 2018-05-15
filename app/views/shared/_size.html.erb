@@ -1,0 +1,29 @@
+<div class="ac-box">
+	<table class="table">
+		<caption>size list</caption>
+		<thead>
+			<tr>
+				<th>サイズ名</th>
+				<th>直径</th>
+				<th>edit</th>
+				<th>destroy</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% sizes.each do |s| %>
+
+				<tr>
+				<td><%= s.size_name %></td>
+				<td><%= s.diameter %></td>
+				<th>
+					<%= link_to "edit", sizes_path(size_id: s.id), class:"edit" %>
+				</th>
+				<td>
+					<%= link_to "delete", size_path(id: s.id), method: :delete, "data-confirm" => "are you sure?", class:"delete"  %>
+				</td>
+			</tr>
+			
+			<% end %>
+		</tbody>
+	</table>
+</div>

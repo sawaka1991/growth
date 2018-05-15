@@ -1,0 +1,88 @@
+<div class="container" style="background-color: #ffffffb5; padding-bottom: 50px">
+	<div class="col-xs-4 write-thank">
+		<h1>write</h1>
+		<% if @information.errors.any? %>
+            <div id="error_explanation" class="text-center">
+                <h4><%= @information.errors.count %>件のエラーが発生しました。</h4>
+                <% @information.errors.full_messages.each do |message| %>
+                    <h6><%= message %></h6>
+                <% end %>
+            </div>
+        <% end %>
+
+		<% if params[:id].present? %>
+			<%= form_for(@information, url: information_path(id: @information), method: :patch) do |f| %>
+				<div class="form-group">
+					<label for="image">image:</label>
+					<%= f.attachment_field :image, id:"image" %>
+				</div>
+				<div class="form-group">
+					<label for="title">title:</label>
+					<%= f.text_field :title, class: "form-control", id:"image" %>
+				</div>
+				<div class="form-group">
+					<label for="comment">body:</label>
+					<%= f.text_area :body, class: "form-control" %>
+				</div>
+				<%= f.submit "write", class: "create pull-right" %>
+				<%= link_to "back", informations_path, class: "button pull-right" %>
+			<% end %>
+
+		<% else %>
+			<%= form_for(@information, url: informations_path, method: :post) do |f| %>
+				<div class="form-group">
+					<label for="image">image:</label>
+					<%= f.attachment_field :image, id:"image" %>
+				</div>
+				<div class="form-group">
+					<label for="title">title:</label>
+					<%= f.text_field :title, class: "form-control", placeholder: "タイトル" %>
+				</div>
+				<div class="form-group">
+					<label for="comment">body:</label>
+					<%= f.text_area :body, class: "form-control", placeholder: "お知らせ内容" %>
+				</div>
+				<%= f.submit "write", class:"create pull-right" %>
+			<% end %>
+
+		<% end %>
+	</div>
+	<div class="col-xs-8">
+		<div class="head-line">
+			NEWS
+		</div>
+	    <table class="table">
+	    	<thead>
+	    		<tr>
+	    			<th>image</th>
+	    			<th>title</th>
+	    			<th>body</th>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+	    		<% @informations.each do |info| %>
+		    		<tr>
+		    			<td style="width: 30%">
+		    				<div class="thank-image">
+		    					<%= attachment_image_tag info, :image %>
+		    				</div>
+		    			</td>
+		    			<td style="width: 30%">
+		    				<%= info.title %>
+		    			</td>
+		    			<td>
+		    				<p>
+		    					<%= info.body %>
+		    				</p>
+		    				<p class="pull-right">
+		    					<%= info.created_at.strftime('%Y年%m月%d日') %><br>
+		    					<%= link_to "edit", informations_path(id: info.id), class: "edit pull-right" %>
+		    					<%= link_to "delete", information_path(info), class: "delete pull-right", method: :delete, "data-confirm" => "本当に削除しますか?" %>
+		    				</p>
+		    			</td>
+		    		</tr>
+	    		<% end %>
+	    	</tbody>
+	    </table>
+	</div>
+	</div>

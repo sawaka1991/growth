@@ -1,0 +1,105 @@
+<div class="container d-f">
+  <div class="head-line">Sign up</div>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"お名前:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <div class="f-g-b fm">
+          <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", class:"form-control", placeholder:"姓" %>
+        </div>
+        <div class="f-g-b">
+          <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class:"form-control", placeholder:"名" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"お名前(カタカナ):", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <div class="f-g-b fm">
+          <%= f.text_field :kana_last_name, autofocus: true, autocomplete: "kana_last_name", class:"form-control", placeholder:"姓(カタカナ)" %>
+        </div>
+        <div class="f-g-b">
+          <%= f.text_field :kana_first_name, autofocus: true, autocomplete: "kana_first_name", class:"form-control", placeholder:"名(カタカナ)" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"ニックネーム:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.text_field :nickname, autofocus: true, autocomplete: "nickname", class:"form-control", placeholder:"ニックネーム" %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"電話番号:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.text_field :tel, autofocus: true, autocomplete: "tel", class:"form-control", placeholder:"電話番号" %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"メールアドレス:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"郵便番号:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.text_field :zipcode, autofocus: true, autocomplete: "zipcode", class:"form-control", placeholder:"郵便番号" %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"住所:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.text_field :address, autofocus: true, autocomplete: "address", class:"form-control", placeholder:"住所" %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3" style="padding-top: 20px">
+        <%= f.label :"パスワード:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> 文字以上)</em>
+        <% end %><br/>
+        <%= f.password_field :password, autocomplete: "off", class:"form-control" %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"パスワード確認:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control" %>
+      </div>
+    </div>
+
+    <div class="actions" style="margin-top: 10px;">
+      <%= f.submit "Sign up", class:"button" %>
+    </div>
+  <% end %>
+    <%= render "devise/shared/links" %>
+</div>

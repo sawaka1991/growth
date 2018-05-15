@@ -1,0 +1,14 @@
+<div class="clearfix">
+	<div class="col-xs-4" style="border: 3px double; background-color: #ffffff8c;">
+		<%= render 'shared/size.form', size: @size %>
+		<%= render 'shared/size', sizes: @sizes, size: @size %>
+	</div>
+	<div class="col-xs-4" style="border: 3px double; background-color: #ffffff8c;">
+		<%= render 'shared/allergie.form', material: @material %>
+		<%= render 'shared/allergie', materials: @materials %>
+	</div>
+	<div class="col-xs-4" style="border: 3px double; background-color: #ffffff8c;">
+		<%= render 'shared/taste.form', taste: @taste %>
+		<%= render 'shared/taste', tastes: @tastes %>
+	</div>
+</div>

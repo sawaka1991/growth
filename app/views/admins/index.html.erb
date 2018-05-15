@@ -1,0 +1,70 @@
+<div class="container">
+	<div class="col-xs-12" style="background-color: #ffffffa6; padding: 10px; height: 700px; overflow: auto">
+		<div class="col-lg-4">
+			<div class="head-line">
+				admin
+			</div>
+			<table class="table" style="text-align: center">
+				<thead>
+					<tr>
+						<th>name</th>
+						<th>edit</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @admins.each do |admin| %>
+						<tr>
+							<td><%= admin.name %></td>
+							<td><%= link_to "edit", edit_admin_registration_path, class: "edit" %>
+							</td>
+							<td>
+								<% if admin[:soft_destroyed_at].present? %>
+									<%= link_to "admin:return", admin_restore_path(id: admin.id), class: "create" %>
+								<% else %>
+									<%= link_to "admin:destroy", admin_path(id: admin.id), data: { confirm: "本当に削除しますか?" }, method: :delete, class: "delete" %>
+								<% end %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-lg-8"  style="border: 3px; border-style: none none none double; height: 650px">
+			<div class="head-line">
+				user
+			</div>
+			<table class="table" style="text-align: center">
+				<thead>
+					<tr>
+						<th>name</th>
+						<th>tel</th>
+						<th>email</th>
+						<th>address</th>
+						<th>status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @users.each do |user| %>
+					<% user_name = user.last_name + user.first_name %>
+						<tr>
+							<td><%= link_to "#{user_name}", admin_path(user) %></td>
+							<td><%= user.tel %></td>
+							<td><%= user.email %></td>
+							<td><%= user.zipcode %><br>
+								<%= user.address %>
+							</td>
+							<td>
+								<% if user[:soft_destroyed_at].present? %>
+                                	<span class="glyphicon glyphicon-alert" style="color:  rgb(255, 87, 139)"></span><span style="font-size: 18px;">退会済</span></td>
+                        		<% end %>
+                    		</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+

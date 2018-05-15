@@ -1,0 +1,31 @@
+<div class="ac-headline">
+	Taste
+</div>
+<div class="ac-form">
+	<% if @taste.errors.any? %>
+        <div id="error_explanation" class="text-center">
+            <h5><%= @taste.errors.count %>件のエラーが発生しました。</h5>
+            <% @taste.errors.full_messages.each do |message| %>
+                <h6><%= message %></h6>
+            <% end %>
+        </div>
+    <% end %>
+	<% if params[:taste_id].present? %>
+		<%= form_for(taste, url: taste_path(taste.id), method: :patch) do |f| %>
+			<div class="form-group">
+				<label for="taste-name">テイスト：</label>
+				<%= f.text_field :taste_name, class:"form-control", id:"taste-name", placeholder:"テイスト名" %>
+			</div>
+				<%= f.submit 'taste edit', class:"edit pull-right" %>
+				<%= link_to 'back', sizes_path, class:"button pull-right" %>
+		<% end %>
+	<% else %>
+		<%= form_for(taste, url: tastes_path, method: :post) do |f| %>
+			<div class="form-group">
+				<label for="taste-name">テイスト：</label>
+				<%= f.text_field :taste_name, class:"form-control", id:"taste-name", placeholder:"テイスト名" %>
+			</div>
+				<%= f.submit 'teste create', class:"create pull-right" %>
+		<% end %>
+	<% end %>
+</div>

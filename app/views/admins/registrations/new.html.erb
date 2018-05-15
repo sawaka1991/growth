@@ -1,0 +1,50 @@
+<div class="container d-f">
+  <div class="head-line">Admin Sign up</div>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"お名前:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.text_field :name, class:"form-control", placeholder:"お名前" %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"メールアドレス:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"メールアドレス" %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3" style="padding-top: 20px">
+        <%= f.label :"パスワード:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br/>
+        <%= f.password_field :password, autocomplete: "off", placeholder:"パスワード", class:"form-control" %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"パスワード確認:", class:"lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.password_field :password_confirmation, autocomplete: "off", placeholder:"パスワード確認", class:"form-control" %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Sign up", class:"button" %>
+    </div>
+  <% end %>
+  <%= render "admins/shared/links" %>
+</div>

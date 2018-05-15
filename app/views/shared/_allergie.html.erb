@@ -1,0 +1,25 @@
+<div class="ac-box">
+	<table class="table">
+		<caption>material list</caption>
+		<thead>
+			<tr>
+				<th>原材料名</th>
+				<th>edit</th>
+				<th>destroy</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% materials.each do |m| %>
+				<tr>
+					<td><%= m.material_name %></td>
+					<td>
+						<%= link_to "edit", sizes_path(material_id: m.id), class:"edit" %>
+					</td>
+					<td>
+						<%= link_to "delete", material_path(id: m.id), method: :delete, "data-confirm" => "are you sure?", class:"delete"  %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

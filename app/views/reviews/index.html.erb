@@ -1,0 +1,204 @@
+<div class="top-box">
+</div>
+<div class="container" style="background-color: #ffffffb5">
+<% if admin_signed_in? %>
+	<div class="col-xs-8 col-xs-offset-2">
+<% else %>
+	<div class="col-lg-4 write-thank xcol-xs-12">
+		<h1>write</h1>
+        <% if @review.errors.any? %>
+            <div id="error_explanation" class="text-center">
+                <h4><%= @review.errors.count %>件のエラーが発生しました。</h4>
+                <% @review.errors.full_messages.each do |message| %>
+                    <h6><%= message %></h6>
+                <% end %>
+            </div>
+        <% end %>
+		<%= form_for(@review) do |f| %>
+			<div class="form-group">
+				<lebel for="item-id">item:</lebel>
+				<%= f.collection_select :item_id, Item.all, :id, :item_name, {}, class: "form-control" %>
+			</div>
+			<div class="form-group">
+				<label for="image">image:</label>
+				<%= f.attachment_field :image, id:"image" %>
+			</div>
+			<div class="form-group">
+				<label for="comment">comment:</label>
+				<%= f.text_area :comment, id:"comment", class: "form-control" %>
+			</div>
+			<% if params[:id].present? %>
+				<%= f.submit "edit", class:"edit pull-right" %>
+				<%= link_to "back", reviews_path, class: "button pull-right" %>
+			<% else %>
+				<%= f.submit "write", class: "button pull-right" %>
+			<% end %>
+		<% end %>
+	</div>
+<!-- ここまでフォーム -->
+	<div class="col-lg-8 col-xs-12">
+<% end %>
+		<div class="head-line">
+			Special Thanks!!
+		</div>
+        <% if admin_signed_in? %>
+            <% if @comment.errors.any? %>
+                <div id="error_explanation" class="text-center">
+                    <h4><%= @comment.errors.count %>件のエラーが発生しました。</h4>
+                    <% @comment.errors.full_messages.each do |message| %>
+                        <h6><%= message %></h6>
+                    <% end %>
+                </div>
+            <% end %>
+        <% else %>
+            <% if flash[:review] %>
+                <div class="flash-r">
+                    こちらはWeb会員様のみご記入頂けます。
+                    ログイン後にご記入をお願いいたします。<br>
+                    登録をされていないお客様は、恐れ入りますが
+                    <%= link_to "こちら", new_user_registration_path %>よりご登録をお願いいたします。
+                </div>
+            <% end %>
+    		<p class="center">
+        		Growthのケーキをお選びいただき、誠にありがとうございます。<br>
+        		みなさまの思い出の1つになれたことを心より嬉しく思います。<br>
+        		みなさまの思い出をGrowthの思い出の一つとしてご投稿いただければ幸いです。<br>
+        		ご意見ご感想等もございましたら是非ご記入ください。
+        	</p>
+        <% end %>
+    	<table class="table item-index">
+    		<thead>
+    			<tr>
+    				<th>image</th>
+    				<th>cake</th>
+    				<th>comment</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<% @reviews.each_with_index do |r,i| %>
+        			<tr>
+        				<td style="width: 30%">
+        					<div class="thank-image">
+        						<%= attachment_image_tag r, :image %>
+        					</div>
+        				</td>
+        				<td style="width: 30%">
+        					<%= link_to item_path(r.item) do %>
+        						<%= r.item.item_name %>
+        					<% end %>
+        				</td>
+        				<td><%= r.comment %><br>
+        					<p style="text-align: right">
+	        					<%= r.created_at.strftime('%Y.%m.%d') %><br>
+	        					投稿者:<%= r.user.nickname %>様
+	        				</p>
+        					<% if r.user == current_user %>
+        						<%= link_to "edit", reviews_path(id: r.id), class:"edit pull-right" %>
+        						<%= link_to "delete", review_path(r.id), method: :delete, "data-confirm" => "本当に消してもよろしいですか?", class:"delete pull-right" %>
+        					<% elsif admin_signed_in? %>
+        						<%= content_tag(:div, "data-toggle" => "modal", "data-target" => "#myModal#{i}") do %>
+        							<button class="button">write comment</button>
+        						<% end %>
+        					<% end %>
+        					<% @comments.where(review_id: r.id).each do |c| %>
+		        				<div class="reply">
+		        					<p><%= c.body %><br>
+			        					<p style="text-align: right">担当：<%= c.admin.name %><br><br>
+			        						<% if admin_signed_in? %>
+			        							<%= link_to "delete", review_comments_path(review_id: r.id, id: c.id), method: :delete, class:"delete" %>
+			        						<% end %>
+			        					</p>
+			        				</p>
+		        				</div>
+	        				<% end %>
+        				</td>
+        			</tr>
+    			<% end %>
+			</tbody>
+        </table>
+        <div class="memory-index-mobile">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>image/cake</th>
+                        <th>comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @reviews.each_with_index do |r,i| %>
+                        <tr>
+                            <td style="width: 30%">
+                                <div class="thank-image">
+                                    <%= attachment_image_tag r, :image %>
+                                </div>
+                                <%= link_to item_path(r.item) do %>
+                                    <%= r.item.item_name %>
+                                <% end %>
+                            </td>
+                            <td><%= r.comment %><br>
+                                <p style="text-align: right">
+                                    <%= r.created_at.strftime('%Y.%m.%d') %><br>
+                                    投稿者:<%= r.user.nickname %>様
+                                </p>
+                                <% if r.user == current_user %>
+                                    <%= link_to "edit", reviews_path(id: r.id), class:"edit pull-right" %>
+                                    <%= link_to "delete", review_path(r.id), method: :delete, "data-confirm" => "本当に消してもよろしいですか?", class:"delete pull-right" %>
+                                <% elsif admin_signed_in? %>
+                                    <%= content_tag(:div, "data-toggle" => "modal", "data-target" => "#myModal#{i}") do %>
+                                        <button class="button">write comment</button>
+                                    <% end %>
+                                <% end %>
+                                <% @comments.where(review_id: r.id).each do |c| %>
+                                    <div class="reply">
+                                        <p><%= c.body %><br>
+                                            <p style="text-align: right">担当：<%= c.admin.name %><br><br>
+                                                <% if admin_signed_in? %>
+                                                    <%= link_to "delete", review_comments_path(review_id: r.id, id: c.id), method: :delete, class:"delete" %>
+                                                <% end %>
+                                            </p>
+                                        </p>
+                                    </div>
+                                <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+        <% @reviews.each_with_index do |review, i| %>
+             <%= content_tag(:div, class: ["modal", "fade"], id: "myModal#{i}",  role: "dialog") do %>
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">
+                                <h1>write</h1>
+                            </h4>
+                        </div>
+                        <div class="modal-body" style="text-align: center; padding-bottom: 50px">
+							<%= form_for([review, @comment]) do |f| %>
+								<%= f.hidden_field :review_id, :value =>review.id %>
+								<div class="form-group">
+									<label for="body">comment:</label>
+									<%= f.text_area :body, id:"body", class:"form-control" %>
+								</div>
+								<% if params[:id].present? %>
+									<%= f.submit "edit", class:"edit pull-right" %>
+									<%= link_to "back", reviews_path, class:"button pull-right" %>
+								<% else %>
+									<%= f.submit "write", class:"create pull-right" %>
+								<% end %>
+							<% end %>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="button" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
+	</div>
+</div>
+
+

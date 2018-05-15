@@ -1,0 +1,189 @@
+<div class="top-box">
+</div>
+<div class="reserve">
+    <div class="head-line">Shopping Cart</div>
+    <table class="table item-index">
+    	<% sum = 0 %>
+        <thead>
+          	<tr>
+            	<th> </th>
+                <th>item</th>
+                <th>price</th>
+                <th>count</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <% if current_user.cart.cart_item_prices.blank? %>
+                <div class="flash">カート内は空です</div>
+            <% end %>
+
+        	<% @cart_item_prices.each do |cip| %>
+	          	<tr>
+	            	<td>
+	            		<% cip.item_price.item.item_images.each_with_index do |item, i| %>
+	            			<% if i == 0 %>
+                                <%= link_to item_path(cip.item_price.item) do %>
+    	            				<div class="h-image">
+    		            				<%= attachment_image_tag item, :image %>
+    		            			</div>
+                                <% end %>
+	            			<% end %>
+	            		<% end %>
+	            	</td>
+	            	<td>
+	            		商品名：<%= link_to item_path(cip.item_price.item) do %>
+	            			<%= cip.item_price.item.item_name %>
+	            		<% end %>
+	            		<br>サイズ：<%= cip.item_price.size.size_name %>
+	            		<% if cip.message.present? %>
+                            <br>プレート：<%= cip.message %>
+                        <% end %>
+
+	            	</td>
+	            	<td>
+	            		<p><%= number_with_delimiter(cip.item_price.price) %><span style="font-size: 10px">円（税抜)</span></p>
+	            		<br>
+	            		×<%= cip.count %>
+	            		<% sub_total = cip.item_price.price * cip.count %>
+	            		<% sum = sum + sub_total %>
+	            		<p><span style="font-size: 20px"><%= number_with_delimiter(sub_total) %></span>円（税抜)</p>
+	            	</td>
+	            	<td>
+	            		<%= form_for(cip, url: item_cart_item_prices_path(item_id: cip.id), method: :patch) do |f| %>
+	            				<%= f.number_field :count, class: "form-control", style: "width: 60px" %>
+	            				<%= f.submit "数量変更", class: "button" %>
+	            		<% end %>
+	            	</td>
+	                <td>
+	                	<%= link_to "delete", item_cart_item_prices_path(item_id: cip), method: :delete, class: "delete" %>
+	                </td>
+	            </tr>
+            <% end %>
+            <tr>
+                <td></td>
+                <td>小計</td>
+                <td>
+                	<p style="font-size: 25px"><%= number_with_delimiter(sum) %><span style="font-size: 12px">円(税抜)</span></p>
+                </td>
+                <td>
+                	<% sumc = 0 %>
+                	<% @cart_item_prices.each do |cip| %>
+                		<% sub_totalc = cip.count %>
+	            		<% sumc = sumc + sub_totalc %>
+                	<% end %>
+                	<p style="font-size: 25px"><%= sumc %><span style="font-size: 12px">点</span></p></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>消費税</td>
+                <td>
+                	<% tax = sum * 0.08 %>
+                	<%= number_with_delimiter(tax.round) %>円</td>
+            	<td></td>
+            	<td></td>
+          	</tr>
+          	<tr>
+                <td></td>
+                <td>合計</td>
+                <td>
+                	<% total_price = (sum + tax) %>
+                	<p style="font-size: 25px">
+                		<%= number_with_delimiter(total_price.round) %>
+                		<span style="font-size: 12px">円(税込)</span>
+                	</p>
+                </td>
+                <td></td>
+                <td></td>
+          	</tr>
+        </tbody>
+    </table>
+    <div class="item-index-mobile">
+        <table class="table">
+            <% sum = 0 %>
+            <thead>
+                <tr>
+                    <th colspan="2">item</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @cart_item_prices.each do |cip| %>
+                    <tr>
+                        <td>
+                            <% cip.item_price.item.item_images.each_with_index do |item, i| %>
+                                <% if i == 0 %>
+                                    <%= link_to item_path(cip.item_price.item) do %>
+                                        <div class="h-image">
+                                            <%= attachment_image_tag item, :image %>
+                                        </div>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                        </td>
+                        <td>
+                            商品名：<%= link_to item_path(cip.item_price.item) do %>
+                                <%= cip.item_price.item.item_name %>
+                            <% end %>
+                            <br>サイズ：<%= cip.item_price.size.size_name %>
+                            <% if cip.message.present? %>
+                                <br>プレート：<%= cip.message %>
+                            <% end %>
+
+                            <p>価格:<%= number_with_delimiter(cip.item_price.price) %><span style="font-size: 10px">円（税抜)</span></p>
+                            ×<%= cip.count %>
+                            <% sub_total = cip.item_price.price * cip.count %>
+                            <% sum = sum + sub_total %>
+                            <p><span style="font-size: 20px"><%= number_with_delimiter(sub_total) %></span>円（税抜)</p>
+
+                            <%= form_for(cip, url: item_cart_item_prices_path(item_id: cip.id), method: :patch) do |f| %>
+                                    <%= f.number_field :count, class: "button", style: "width: 60px" %>
+                                    <%= f.submit "数量変更", class: "button" %>
+                            <% end %>
+
+                            <%= link_to "delete", item_cart_item_prices_path(item_id: cip), method: :delete, class: "delete pull-right" %>
+                        </td>
+                    </tr>
+                <% end %>
+                <tr>
+                    <td>小計</td>
+                    <td>
+                        <p style="font-size: 25px"><%= number_with_delimiter(sum) %><span style="font-size: 12px">円(税抜)</span></p>
+                        <% sumc = 0 %>
+                        <% @cart_item_prices.each do |cip| %>
+                            <% sub_totalc = cip.count %>
+                            <% sumc = sumc + sub_totalc %>
+                        <% end %>
+                        <p style="font-size: 25px"><%= sumc %><span style="font-size: 12px">点</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>消費税</td>
+                    <td>
+                        <% tax = sum * 0.08 %>
+                        <%= number_with_delimiter(tax.round) %>円
+                    </td>
+                </tr>
+                <tr>
+                    <td>合計</td>
+                    <td>
+                        <% total_price = (sum + tax) %>
+                        <p style="font-size: 25px">
+                            <%= number_with_delimiter(total_price.round) %>
+                            <span style="font-size: 12px">円(税込)</span>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <% if current_user.cart.cart_item_prices.blank?  %>
+        <%= link_to "back to menu", items_path, class: "button pull-right" %>
+    <% else %>
+        <%= link_to "購入手続きへ進む", reserve_path(id: @cart), class: "create pull-right" %>
+        <%= link_to "買い物を続ける", items_path, class: "button pull-right" %>
+    <% end %>
+</div>
+
+

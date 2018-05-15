@@ -1,0 +1,32 @@
+<div class="ac-headline">
+	Material
+</div>
+<div class="ac-form">
+	<% if @material.errors.any? %>
+        <div id="error_explanation" class="text-center">
+            <h5><%= @material.errors.count %>件のエラーが発生しました。</h5>
+            <% @material.errors.full_messages.each do |message| %>
+                <h6><%= message %></h6>
+            <% end %>
+        </div>
+    <% end %>
+	<% if params[:material_id].present? %>
+		<%= form_for(material, url: material_path(material.id), method: :patch)  do |f| %>
+			<div class="form-group">
+				<label for="material-name">原材料名：</label>
+				<%= f.text_field :material_name, class:"form-control", id:"material-name", placeholder:"原材料名" %>
+			</div>
+			<%= f.submit 'material edit', class:"edit pull-right" %>
+			<%= link_to 'back', sizes_path, class:"button pull-right" %>
+		<% end %>
+
+	<% else %>
+		<%= form_for(material, url: materials_path, method: :post)  do |f| %>
+			<div class="form-group">
+				<label for="material-name">原材料名：</label>
+				<%= f.text_field :material_name, class:"form-control", id:"material-name", placeholder:"原材料名" %>
+			</div>
+			<%= f.submit 'material create', class:"create pull-right" %>
+		<% end %>
+	<% end %>
+</div>

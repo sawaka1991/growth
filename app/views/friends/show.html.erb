@@ -1,0 +1,127 @@
+<div class="top-box"></div>
+<div class="container" style="background-color: #ffffff8c; padding-bottom: 50px">
+	<div class="item-index-mobile">
+        <div class="wrap">
+            logo
+        </div>
+        <div class="side">
+            <%= render 'shared/memory.form', memory: @memory, friend: @friend %>
+        </div>
+    </div>
+    <div class="item-index">
+        <%= render 'shared/memory.form', memory: @memory, friend: @friend %>
+    </div>
+	<div class="col-xs-12 col-lg-9" style="padding-top: 50px">
+	    <div class="col-lg-6 col-xs-12">
+	    	<div  class="friend-image center-block">
+	    		<%= attachment_image_tag @friend, :image, fallback: "no_image.png" %>
+	    	</div>
+	    </div>
+	    <div class="col-lg-6 col-xs-12">
+	    	<table class="table" style="text-align: center">
+	    		<caption style="text-align: center">profile</caption>
+	    		<tbody>
+	    			<tr>
+	    				<td>group</td>
+	    				<td><%= @friend.group %></td>
+	    			</tr>
+	    			<tr>
+	    				<td>name</td>
+	    				<td><%= @friend.name %></td>
+	    			</tr>
+	    			<tr>
+	    				<td>birthday</td>
+	    				<td><%= @friend.birthday %></td>
+	    			</tr>
+	    			<tr>
+	    				<td>age</td>
+	    				<td>
+	    					<% date_format = "%Y%m%d"  %>
+	                        <% age = (Date.today.strftime(date_format).to_i - @friend.birthday.strftime(date_format).to_i) / 10000 %>
+	                        <%= age %>
+	    				</td>
+	    			</tr>
+	    			<tr>
+	    				<td>like</td>
+	    				<td>
+	    					<% @likes.each do |like| %>
+	    						&emsp;<%= like.taste.taste_name %>&emsp;/
+	    					<% end %>
+	    				</td>
+	    			</tr>
+	    			<tr>
+	    				<td colspan="2">
+	    					<%= link_to "edit friend", edit_user_friend_path(user_id: current_user.id, id: @friend.id), class:"edit pull-right" %>
+	    					<%= link_to "edit likes", user_friend_likes_path(user_id: current_user.id, friend_id: @friend.id), class:"edit pull-right" %>
+	    				</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    </div>
+	    <%= link_to "back tou Birthday list", user_friends_path(user_id: current_user.id), class:"button pull-right"  %>
+	    <div class="col-xs-12">
+	    	<h2 style="text-align: center">memory</h2>
+	    	<% @memories.each_with_index do |m, i| %>
+		    	<%= content_tag(:div, class: "f-memory", "data-toggle" => "modal", "data-target" => "#myModal#{i}") do %>
+		    		<img class="memory-image" style="background-image: <%= attachment_image_tag m, :image; %>
+		    		<table class="table item-index">
+		    			<tr>
+		    				<td>title</td>
+		    				<td><%= m.title %></td>
+		    			</tr>
+		    			<tr>
+		    				<td>date</td>
+		    				<td><%= m.created_at.strftime('%Y.%m.%d.') %></td>
+		    			</tr>
+		    		</table>
+		    		<table class="mobile-memory-index">
+		    			<tr>
+		    				<td><%= m.title %></td>
+		    			</tr>
+		    			<tr>
+		    				<td><%= m.created_at.strftime('%Y.%m.%d.') %></td>
+		    			</tr>
+		    		</table>
+	    		<% end %>
+	    	<% end %>
+
+			<!-- Modal -->
+			<% @memories.each_with_index do |m,i| %>
+				<%= content_tag(:div, class: ["modal", "fade"], id: "myModal#{i}", role: "dialog") do %>
+			    	<div class="modal-dialog">
+			      	<!-- Modal content-->
+			      		<div class="modal-content">
+			        		<div class="modal-header">
+			          			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			        		</div>
+					        <div class="modal-body">
+					        	<div class="memory-pic">
+					        		<%= attachment_image_tag m, :image %>
+					        	</div>
+								<table class="table">
+									<tr>
+										<td>title</td>
+										<td><%= m.title %></td>
+									</tr>
+									<tr>
+										<td>date</td>
+										<td><%= m.created_at.strftime('%Y.%m.%d.') %></td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<%= m.body %><br>
+											<%= link_to "delete", user_friend_memory_path(user_id: current_user.id, friend_id: @friend.id, id: m.id), method: :delete, class:"delete pull-right" %>
+										</td>
+									</tr>
+								</table>
+							</div>
+					        <div class="modal-footer">
+					        	<button class="button pull-right" data-dismiss="modal">close</button>
+					        </div>
+			    		</div>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>

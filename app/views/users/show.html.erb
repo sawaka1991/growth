@@ -1,0 +1,63 @@
+<div class="top-box"></div>
+<div class="container" style="background-color: #ffffff8c;">
+	<div class="item-index-mobile">
+        <div class="wrap">
+            logo
+        </div>
+        <div class="side">
+            <%= render 'shared/userside', user: @user, friend: @friend %>
+        </div>
+    </div>
+    <div class="item-index">
+        <%= render 'shared/userside', user: @user, friend: @friend %>
+    </div>
+	<div class="col-lg-9 col-xs-12">
+		<div class="col-lg-8 col-lg-offset-2 col-xs-12 user-show-mobile">
+			<div class="head-line">
+				User Profile
+			</div>
+			<table class="table" style="text-align: center">
+				<thead>
+					<tr>
+						<td>お名前</td>
+						<% name = @user.last_name + @user.first_name %>
+						<td><%= name %></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>お名前（カタカナ）</td>
+						<% kana_name = @user.kana_last_name + @user.kana_first_name %>
+						<td><%= kana_name %></td>
+					</tr>
+					<tr>
+						<td>ニックネーム</td>
+						<td><%= @user.nickname %></td>
+					</tr>
+					<tr>
+						<td>メールアドレス</td>
+						<td><%= @user.email %></td>
+					</tr>
+					<tr>
+						<td>電話番号</td>
+						<td><%= @user.tel %></td>
+					</tr>
+					<tr>
+						<td>郵便番号</td>
+						<td>〒<%= @user.zipcode %></td>
+					</tr>
+					<tr>
+						<td>ご住所</td>
+						<td><%= @user.address %></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<%= link_to "edit USER", edit_user_registration_path, class:"edit pull-right" %>
+							<%= link_to "退会", leave_path(current_user.id), class:"delete pull-right" %>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

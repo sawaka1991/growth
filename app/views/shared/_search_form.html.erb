@@ -1,0 +1,9 @@
+<%= search_form_for(@q, :url => {:controller => '/items', :action => 'index'}) do |f| %>
+	<div class="ck-box">
+		<%=  f.collection_check_boxes(:tastes_id_in, Taste.all, :id, :taste_name) do |b| %>
+			<%= b.label {b.check_box + b.text} %>
+		<% end %>
+	</div>
+	<%= f.submit "love it!", class: "delete pull-right", style: "font-size: 8px" %>
+	<%= link_to "clear", items_path, class: "button pull-right", style: "font-size: 8px"  %>
+<% end %>

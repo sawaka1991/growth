@@ -1,0 +1,30 @@
+<div class="item_allergy_form">
+	<% if flash[:allergy_error] %>
+	    <div class="flash"><%= flash[:allergy_error] %></div>
+	<% end %>
+	<%= form_for([item, allergy]) do |a| %>
+		<div class="form-group">
+			<label for="allergie">特定原材料：</label>
+			<div id="allergie">
+				<%= a.collection_select :material_id, Material.all, :id, :material_name %>
+	      	</div>
+			<%= a.submit "create", class: "create pull-right" %>
+		</div>
+	<% end %>
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>material</th>
+			<th>delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% allergies.each do |ale| %>
+			<tr>
+				<td><%= ale.material.material_name %></td>
+				<td><%= link_to "delete", item_allergies_path(item_id: item.id, id: ale), method: :delete, class: "delete" %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

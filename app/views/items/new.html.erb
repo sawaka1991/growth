@@ -1,0 +1,72 @@
+<div class="container" style= "background-color: #ffffff8c; margin-top: 50px; padding-bottom: 30px">
+	<div class="head-line">
+		item create
+	</div>
+	<div class="col-xs-8 col-xs-offset-2">
+		<% if @item.errors.any? %>
+            <div id="error_explanation" class="text-center">
+                <h4><%= @item.errors.count %>件のエラーが発生しました。</h4>
+                <% @item.errors.full_messages.each do |message| %>
+                    <h6><%= message %></h6>
+                <% end %>
+	        </div>
+        <% end %>
+		<%= form_for(@item) do |f| %>
+		  	<%#= f.fields_for :item_images do |itemimage| %>
+				<div class="form-group">
+					<lebel for="image">image:</lebel>
+					<%= f.attachment_field :item_images_images, multiple: true, id:"image" %>
+				</div>
+			<%# end %>
+		<div class="form-group">
+			<label for="type">分類：</label>
+			<%= f.select :type,Item.types.keys, id:"type" %>
+		</div>
+
+		<div class="form-group">
+			<label for="item_name">商品名：</label>
+			<%= f.text_field :item_name, class:"form-control", id:"item_name", placeholder: "商品名" %>
+		</div>
+		<div class="form-group">
+			<label for="introduction">商品説明：</label>
+			<%= f.text_area :introduction, class:"form-control", id:"introduction", placeholder: "商品説明" %>
+		</div>
+		<%= f.fields_for :allergies do |a| %>
+			<div class="form-group item-allergie clearfix">
+				<label for="allergie">特定原材料：</label>
+				<div id="allergie">
+ 					<%= a.collection_check_boxes(:material_id, Material.all, :id, :material_name, include_hidden: false) do |ab| %>
+              			<%= ab.label { ab.check_box + ab.text } %>
+              		<% end %>
+	      		</div>
+			</div>
+		<% end %>
+		<%= f.fields_for :item_tastes do |it| %>
+			<div class="form-group item-taste clearfix">
+				<label for="taste">テイスト：</label>
+				<div id="taste">
+					<%= it.collection_check_boxes(:taste_id, Taste.all, :id, :taste_name, include_hidden: false) do |itb| %>
+						<%= itb.label {itb.check_box + itb.text} %>
+					<% end %>
+	      		</div>
+			</div>
+		<% end %>
+		<%#= f.fields_for :item_prices do |ip| %>
+			<div class="form-group item-price clearfix">
+				<label for="price">価格：</label>
+				<div id="price">
+					<% Size.all.each_with_index do |size, i| %>
+						<div class="price-box">
+							<%= f.fields_for :item_prices do |ip| %>
+								<%= ip.hidden_field :size_id, value: size.id %>
+								<%= size.size_name %>
+								<%= ip.number_field :price, class:"btn-xs" %>
+							<% end %>
+						</div>
+					<% end %>
+      			</div>
+			</div>
+		<%= f.submit "create item", class:"create pull-right" %>
+		<% end %>
+	</div>
+</div>

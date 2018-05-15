@@ -1,0 +1,71 @@
+<div class="container d-f">
+  <div class="head-line">Edit <%= resource_name.to_s.humanize %></div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"メールアドレス:", class: "lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "メールアドレス" %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"名前:", class: "lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control", placeholder: "名前" %>
+      </div>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"パスワード:", class: "lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "パスワードを変更する場合のみ入力" %>
+        <% if @minimum_password_length %>
+          <em><%= @minimum_password_length %> characters minimum</em>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"パスワード確認:", class: "lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "パスワードを変更する場合のみ入力" %>
+      </div>
+    </div>
+
+    <div class="f-g">
+      <div class="col-xs-3">
+        <%= f.label :"パスワード:", class: "lebel-f" %>
+      </div>
+      <div class="col-xs-9">
+        <%= f.password_field :current_password, autocomplete: "off", class: "form-control", placeholder: "パスワード" %>
+      </div>
+    </div>
+
+    <div class="actions f-g">
+      <%= f.submit "Update", class: "create pull-right" %>
+    </div>
+  <% end %>
+
+  <div class="f-g">
+    Cancel my account
+    <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "button pull-right" %></p>
+  </div>
+
+  <div class="f-g">
+    <%= link_to "Back", admins_path, class: "button" %>
+  </div>
+</div>

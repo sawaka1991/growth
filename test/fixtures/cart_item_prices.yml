@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item_price_id: 1
+  count: 1
+  message: MyText
+
+two:
+  item_price_id: 1
+  count: 1
+  message: MyText

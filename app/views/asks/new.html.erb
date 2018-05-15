@@ -1,0 +1,52 @@
+<div class="container">
+	<div class="col-lg-10 col-xs-offset-1">
+		<div class="head-line">お問い合わせ</div>
+		<%= form_for(@ask, url: ask_confirm_path, metod: :post) do |f| %>
+		
+			<div class="f-g">
+				<div class="col-lg-3">
+				    <label>お問い合わせ内容</label>
+				</div>
+				<div class="col-lg-9">
+					<%= f.select :about,Ask.abouts.keys, {}, class: "form-control" %>
+				</div>
+			</div>
+			<div class="f-g">
+				<div class="col-lg-3">
+				    <label>返信の有無</label>
+				</div>
+				<div class="col-lg-9">
+					<%= f.select :reply,Ask.replies.keys, {}, class: "form-control" %>
+				</div>
+			</div>
+
+			<div class="f-g">
+				<div class="col-lg-3">
+				    <label>お名前</label>
+				</div>
+				<div class="col-lg-9">
+					<%= f.text_field :name, class: "form-control" %>
+				</div>
+			</div>
+			<div class="f-g">
+				<div class="col-lg-3">
+				    <label>メールアドレス</label>
+				</div>
+				<div class="col-lg-9">
+					<%= f.email_field :email, class: "form-control" %>
+				</div>
+			</div>
+			<div class="f-g">
+				<div class="col-lg-3">
+				    <label>問い合わせ内容</label>
+				</div>
+				<div class="col-lg-9">
+					<%= f.text_area :body, class: "form-control", style: "height: 100px" %>
+				</div>
+			</div>
+			<div class="f-g">
+				<%= f.submit "内容確認へ", class: "create pull-right" %>
+			</div>
+		<% end %>
+	</div>
+</div>

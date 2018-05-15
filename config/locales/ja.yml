@@ -1,0 +1,47 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      admin: 管理者
+      item: 商品
+      information: インフォメーション
+      comment: コメント
+      size: サイズ
+      material: 原材料
+      taste: テイスト
+      review: レビュー
+      friend: フレンド
+
+    attributes:
+      information:
+        title: タイトル
+        body: お知らせ内容
+
+      comment:
+        body: コメント
+
+      item:
+        item_name: 商品名
+        introduction: 商品説明
+
+      size:
+        size_name: サイズ名
+        diameter: 直径
+
+      material:
+        material_name: 原材料名
+
+      taste:
+        taste_name: テイスト名
+
+      review:
+        comment: コメント
+
+      friend:
+        name: 名前
+        birthday: 誕生日
+      friend/likes:
+        taste: 好きなもの
+      memory:
+        title: タイトル
+        body: コメント

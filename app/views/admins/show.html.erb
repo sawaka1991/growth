@@ -1,0 +1,59 @@
+<div class="container">
+	<div class="col-xs-6 col-xs-offset-3" style="background-color: #ffffffa6;">
+		<div class="head-line">
+			user profile
+		</div>
+		<table class="table" style="text-align: center">
+			<thead>
+				<tr>
+					<td>お名前</td>
+					<% name = @user.last_name + @user.first_name %>
+					<td><%= name %></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>お名前（カタカナ）</td>
+					<% kana_name = @user.kana_last_name + @user.kana_first_name %>
+					<td><%= kana_name %></td>
+				</tr>
+				<tr>
+					<td>ニックネーム</td>
+					<td><%= @user.nickname %></td>
+				</tr>
+				<tr>
+					<td>メールアドレス</td>
+					<td><%= @user.email %></td>
+				</tr>
+				<tr>
+					<td>電話番号</td>
+					<td><%= @user.tel %></td>
+				</tr>
+				<tr>
+					<td>郵便番号</td>
+					<td>〒<%= @user.zipcode %></td>
+				</tr>
+				<tr>
+					<td>ご住所</td>
+					<td><%= @user.address %></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<% if @user[:soft_destroyed_at].present? %>
+							<p style="color: red"><%= name %>様は退会済みです。</p>
+							<%= link_to "退会者を復活させる", user_restore_path(@user), class: "delete" %>
+						<% else %>
+							<%= link_to "USER:destroy", user_path(@user), data: { confirm: "本当に退会させますか?" }, method: :delete, class: "delete" %>
+						<% end %>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<%= link_to "back", :back, class: "button pull-right" %>
+						<%= link_to "user index", admins_path, class: "button pull-right" %>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

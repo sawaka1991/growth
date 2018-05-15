@@ -1,0 +1,138 @@
+
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta content="text/html; charset=UTF-8" />
+  <style type="text/css">
+    h2 {
+      color: #999999;
+      font-family: "copperplate", "Hannarimincho";
+    }
+    p hr {
+      color: #999999;
+      font-family: "Hannarimincho";
+      text-align: center;
+      margin: 0 auto;
+    }
+    .mail-growth {
+		width: 100%;
+		border: 12px #fff;
+		border-style: double none double none;
+		background-color: #d4d4d461;
+		padding: 10px;
+		font-family: "copperplate", "Hannarimincho";
+	}
+	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    margin: 0 auto;
+    font-family: "Hannarimincho";
+	}
+  </style>
+</head>
+<body>
+<% sum = 0 %>
+	<% user_name = @user.last_name + @user.first_name %>
+	<div class="mail-growth">
+		<h2><%= user_name %> 様</h2>
+	</div>
+	  <hr />
+		
+
+
+		<table class="table" style="text-align: right">
+			<thead>
+				<tr>
+					<th colspan="2">
+						このたびはご予約いただき誠にありがとうございます。<br>
+						<br>
+						数ある店舗の中から当店をお選びいただき、
+						誠にありがとうございます。<br>
+
+						以下の内容でご予約注文をお受けいたしましたので
+						ご確認をお願いいたします。<br><br>
+					</th>
+				</tr>
+				<tr>
+				 	<th colspan="2">
+				 		ご予約内容
+				 	</th>
+			</thead>
+			<tbody>
+				<% @history.item_histories.each do |ih| %>
+					<tr>
+		    			<td>
+			        		<%= ih.item_price.item.item_name %>
+							<br>
+							サイズ: <%= ih.item_price.size.size_name %><br>
+							金額：<%= number_with_delimiter( ih.item_price.price ) %>円（税抜)<br>
+							<% if ih.message.present? %>
+			    				プレート：<%= ih.message %>
+							<% end %>
+			   			</td>
+			    		<td>数量：<%= ih.count %>点<br>
+			    			<% sub_total = ih.count * ih.item_price.price %>
+			    			<% sum = sum + sub_total %>
+			    			<%= number_with_delimiter( sub_total ) %>円（税抜)
+			    		</td>
+		  			</tr>
+				<% end %>
+			    <tr>
+			     	<td>小計</td>
+			        <td><%= number_with_delimiter( sum ) %>円(税抜)</td>
+			    </tr>
+			    <tr>
+			        <td>消費税</td>
+			        <td>
+			        	<% tax = sum * 0.08 %>
+			        	<%= number_with_delimiter(tax.round) %>円</td>
+			    </tr>
+			    <tr>
+			        <td>合計</td>
+			        <td><%= @history.total_price %>円(税込)</td>
+			    </tr>
+			       <tr>
+			        <td>ご予約日</td>
+			        <td><%= @history.reserve_date.strftime("%Y年%m月%d日") %></td>
+			    </tr>
+			    <tr>
+			        <td>受け取り時間</td>
+			        <td><%= @history.time %></td>
+			    </tr>
+			    <% if @history.candle != 0 %>
+				    <tr>
+				        <td>ろうそく</td>
+				        <td><%= @history.candle %>本</td>
+				    </tr>
+			    <% end %>
+			    <% if @history.remark.present? %>
+				    <tr>
+				        <td>備考</td>
+				        <td><%= @history.remark %></td>
+				    </tr>
+			    <% end %>
+			    <tr>
+					<td colspan="2" style="text-align: center">
+						こちらの内容で当日ご用意してお待ちしております。<br>
+						変更等ございましたら、恐れ入りますが、下記店舗の方へご連絡ください。<br>
+						当日お会いできることを楽しみにお待ちしております。
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="mail-growth">
+			<h2>Growth</h2>
+			URL：http://www.***.co.jp<br>
+			<br>
+			住所:	〒３５４−００３１<br>
+			埼玉県富士見市鶴馬２丁目１７−３７<br>
+			電話番号:０１２０−１１２−７２１<br>
+			営業時間:１０:００〜１９:００<br>
+			定休日:毎週火曜日
+		</div>
+	 <hr />
+</body>
+</html>

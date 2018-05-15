@@ -1,0 +1,197 @@
+<div class="top-box"></div>
+<div class="container" style="background-color: #ffffff8c;">
+	<div class="item-index-mobile">
+        <div class="wrap">
+            logo
+        </div>
+        <div class="side">
+            <%= render 'shared/userside', user: @user, friend: @friend %>
+        </div>
+    </div>
+    <div class="item-index">
+        <%= render 'shared/userside', user: @user, friend: @friend %>
+    </div>
+	<div class="col-lg-9 col-xs-12">
+		<div class="head-line">
+			HISTORY
+		</div>
+		<div class="col-lg-8 col-lg-offset-2 col-xs-12">
+			<dl id="history">
+				<% sum = 0 %>
+				<% sub_total = 0 %>
+				<% @histories.each do |history| %>
+				  	<dt style="text-align: center">受付日:<%= history.created_at.strftime("%Y.%m.%d") %><br>
+				  		ご予約日:<%= history.reserve_date.strftime("%Y.%m.%d") %></dt>
+					  	<dd>
+			  				<table class="table item-index" style="text-align: right">
+			  					<thead>
+			      		  			<caption class="center">ご予約内容</caption>
+					  			</thead>
+					  			<tbody>
+				      				<% history.item_histories.each do |ih| %>
+						      			<tr>
+						      				<td>
+						      					<% ih.item_price.item.item_images.each_with_index do |itemimage, i| %>
+						      						<% if i == 0  %>
+						      							<div class="h-image">
+						      								<%= link_to  item_path(ih.item_price.item_id) do %>
+						      									<%= attachment_image_tag itemimage, :image %>
+						      								<% end %>
+									      				</div>
+									      			<% end %>
+									      		<% end %>
+						      				</td>
+							        		<td>
+							        			<%= link_to  item_path(ih.item_price.item_id) do %>
+								        			<%= ih.item_price.item.item_name %>
+								        		<% end %>
+						        				<br>
+						        				サイズ: <%= ih.item_price.size.size_name %><br>
+						        				金額：<%= number_with_delimiter( ih.item_price.price ) %>円（税抜)<br>
+						        				<% if ih.message.present? %>
+							        				プレート：<%= ih.message %>
+						        				<% end %>
+							       			</td>
+							        		<td>数量：<%= ih.count %>点<br>
+							        			<% sub_total = ih.count * ih.item_price.price %>
+							        			<% sum = sum + sub_total %>
+							        			<%= number_with_delimiter( sub_total ) %>円（税抜)
+							        		</td>
+							      		</tr>
+						      		<% end %>
+								    <tr>
+								     	<td colspan="2">小計</td>
+								        <td><%= number_with_delimiter( sum ) %>円(税抜)</td>
+								    </tr>
+								    <tr>
+								        <td colspan="2">消費税</td>
+								        <td>
+								        	<% tax = sum * 0.08 %>
+								        	<%= number_with_delimiter(tax.round) %>円</td>
+								    </tr>
+								    <tr>
+								        <td colspan="2">合計</td>
+								        <td><%= history.total_price %>円(税込)</td>
+								    </tr>
+								       <tr>
+								        <td colspan="2">ご予約日</td>
+								        <td><%= history.reserve_date.strftime("%y年%m月%d日") %></td>
+								    </tr>
+								    <tr>
+								        <td colspan="2">受け取り時間</td>
+								        <td><%= history.time %></td>
+								    </tr>
+								    <% if history.candle != 0 %>
+									    <tr>
+									        <td colspan="2">ろうそく</td>
+									        <td><%= history.candle %>本</td>
+									    </tr>
+								    <% end %>
+								    <% if history.remark.present? %>
+									    <tr>
+									        <td colspan="2">備考</td>
+									        <td><%= history.remark %></td>
+									    </tr>
+								    <% end %>
+								    <tr>
+						        		<td colspan="3" style="text-align: center">
+						        			<% if history.status == "finish" %>
+						        				お買い上げありがとうございました。<br>
+								    			こちらの商品はお受け取り済みです<br>
+						        			<% else %>
+						        				ご注文ありがとうございます。<br>
+						        				当日ご用意してお待ちしております。
+						        			<% end %>
+						        		</td>
+						      		</tr>
+						      	</tbody>
+						  	</table>
+						  	<div class="mobile-memory-index">
+							  	<table class="table" style="text-align: center">
+				  					<thead>
+				      		  			<caption class="center">ご予約内容</caption>
+						  			</thead>
+						  			<tbody>
+					      				<% history.item_histories.each do |ih| %>
+							      			<tr>
+							      				<td colspan="2">
+							      					<% ih.item_price.item.item_images.each_with_index do |itemimage, i| %>
+							      						<% if i == 0  %>
+							      							<div class="h-image">
+							      								<%= link_to  item_path(ih.item_price.item_id) do %>
+							      									<%= attachment_image_tag itemimage, :image %>
+							      								<% end %>
+										      				</div>
+										      			<% end %>
+										      		<% end %>
+								        			<%= link_to  item_path(ih.item_price.item_id) do %>
+									        			<%= ih.item_price.item.item_name %>
+									        		<% end %>
+							        				<br>
+							        				サイズ: <%= ih.item_price.size.size_name %><br>
+							        				金額：<%= number_with_delimiter( ih.item_price.price ) %>円（税抜)<br>
+							        				<% if ih.message.present? %>
+								        				プレート：<%= ih.message %>
+							        				<% end %>
+								       				数量：<%= ih.count %>点<br>
+								        			<% sub_total = ih.count * ih.item_price.price %>
+								        			<% sum = sum + sub_total %>
+								        			<%= number_with_delimiter( sub_total ) %>円（税抜)
+								        		</td>
+								      		</tr>
+							      		<% end %>
+									    <tr>
+									     	<td>小計</td>
+									        <td><%= number_with_delimiter( sum ) %>円(税抜)</td>
+									    </tr>
+									    <tr>
+									        <td>消費税</td>
+									        <td>
+									        	<% tax = sum * 0.08 %>
+									        	<%= number_with_delimiter(tax.round) %>円</td>
+									    </tr>
+									    <tr>
+									        <td>合計</td>
+									        <td><%= history.total_price %>円(税込)</td>
+									    </tr>
+									       <tr>
+									        <td>ご予約日</td>
+									        <td><%= history.reserve_date.strftime("%y年%m月%d日") %></td>
+									    </tr>
+									    <tr>
+									        <td>受け取り時間</td>
+									        <td><%= history.time %></td>
+									    </tr>
+									    <% if history.candle != 0 %>
+										    <tr>
+										        <td>ろうそく</td>
+										        <td><%= history.candle %>本</td>
+										    </tr>
+									    <% end %>
+									    <% if history.remark.present? %>
+										    <tr>
+										        <td>備考</td>
+										        <td><%= history.remark %></td>
+										    </tr>
+									    <% end %>
+									    <tr>
+							        		<td colspan="2" style="text-align: center">
+							        			<% if history.status == "finish" %>
+							        				お買い上げありがとうございました。<br>
+									    			こちらの商品はお受け取り済みです<br>
+							        			<% else %>
+							        				ご注文ありがとうございます。<br>
+							        				当日ご用意してお待ちしております。
+							        			<% end %>
+							        		</td>
+							      		</tr>
+							      	</tbody>
+							  	</table>
+							 </div>
+					  	</dd>
+					</dt>
+				<% end %>
+			</dl>
+		</div>
+	</div>
+</div>

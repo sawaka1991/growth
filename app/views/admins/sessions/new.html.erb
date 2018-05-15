@@ -1,0 +1,38 @@
+<div class="container d-f" style="height: 650px">
+  <div class="head-line">admin Login</div>
+    <div class="f-g">
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="f-g">
+        <div class="col-xs-3">
+          <%= f.label :email, class:"lebel-f" %>
+        </div>
+        <div class="col-xs-9">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder: "メールアドレス" %>
+        </div>
+      </div>
+
+      <div class="f-g">
+        <div class="col-xs-3">
+          <%= f.label :password, class:"lebel-f" %>
+        </div>
+        <div class="col-xs-9">
+          <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "パスワード" %>
+        </div>
+      </div>
+
+      <div class="f-g">
+        <% if devise_mapping.rememberable? -%>
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        <% end -%>
+        <div class="actions">
+          <%= f.submit "Log in", class: "button" %>
+        </div>
+      </div>
+    <% end %>
+    <div class="f-g">
+      <%= render "admins/shared/links" %>
+    </div>
+  </div>
+</div>

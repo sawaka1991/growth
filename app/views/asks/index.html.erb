@@ -1,0 +1,103 @@
+<div class="container" style="padding-bottom: 250px">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="head-line">お問い合わせ</div>
+	  	<ul class="nav nav-tabs" style="margin-top: 50px">
+	    	<li class="active">
+	    		<a data-toggle="tab" href="#new">new</a>
+	    	</li>
+	    	<li>
+	    		<a data-toggle="tab" href="#ok">ok</a>
+	    	</li>
+	  	</ul>
+	  	<div class="tab-content">
+	    	<div id="new" class="tab-pane fade in active">
+	    		<div class="head-line">NEW</div>
+				<dl id="history">
+					<% new_asks = @asks.where(status: 0) %>
+					<% new_asks.each do |ask| %>
+					  	<dt>受付日:<%= ask.created_at.strftime("%y.%m.%d") %>&emsp;&emsp;
+					  		内容:<%= ask.about %>
+				  		</dt>
+					  	<dd>
+			  				<table class="table" style="text-align: right">
+			  					<thead>
+			      		  			<caption class="center">問い合わせ内容</caption>
+					  			</thead>
+					  			<tbody>
+					      			<tr>
+					      				<td>
+					      					<%= ask.about %>
+						        		</td>
+						      		</tr>
+								    <tr>
+								     	<td><%= ask.body %></td>
+								    </tr>
+								    <tr>
+								        <td><%= ask.reply %></td>
+								    </tr>
+								    <tr>
+								        <td>お名前:<%= ask.name %>様<br>
+								        	メールアドレス:<%= ask.email %>
+								        </td>
+								    </tr>
+								    <tr>
+								        <td>
+								        	<%= form_for(ask) do |f| %>
+				                    			<%= f.submit "change", class: "button pull-right" %>
+				                    			<%= f.select :status,Ask.statuses.keys, {}, {class: "create pull-right", style: "font-size: 20px"} %>
+				                    		<% end %>
+								        </td>
+								    </tr>
+						      	</tbody>
+						  	</table>
+					  	</dd>
+					<% end %>
+				</dl>
+			</div>
+		    <div id="ok" class="tab-pane fade">
+		       	<div class="head-line">finish</div>
+				<dl id="history">
+				  	<% ok_asks = @asks.where(status: 1) %>
+					<% ok_asks.each do |ask| %>
+					  	<dt>受付日:<%= ask.created_at.strftime("%y.%m.%d") %>&emsp;&emsp;
+					  		内容:<%= ask.about %>
+				  		</dt>
+					  	<dd>
+			  				<table class="table" style="text-align: right">
+			  					<thead>
+			      		  			<caption class="center">問い合わせ内容</caption>
+					  			</thead>
+					  			<tbody>
+					      			<tr>
+					      				<td>
+					      					<%= ask.about %>
+						        		</td>
+						      		</tr>
+								    <tr>
+								     	<td><%= ask.body %></td>
+								    </tr>
+								    <tr>
+								        <td><%= ask.reply %></td>
+								    </tr>
+								    <tr>
+								        <td>お名前:<%= ask.name %>様<br>
+								        	メールアドレス:<%= ask.email %>
+								        </td>
+								    </tr>
+								    <tr>
+								        <td>
+								        	<%= form_for(ask) do |f| %>
+				                    			<%= f.submit "change", class: "button pull-right" %>
+				                    			<%= f.select :status,Ask.statuses.keys, {}, {class: "delete pull-right", style: "font-size: 20px"} %>
+				                    		<% end %>
+								        </td>
+								    </tr>
+						      	</tbody>
+						  	</table>
+					  	</dd>
+					<% end %>
+				</dl>
+			</div>
+		</div>
+	</div>
+</div>

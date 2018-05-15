@@ -1,0 +1,28 @@
+<div class="col-lg-3 col-xs-12">
+    <div class="side-form">
+    	<h3 style="margin-top: 50px; text-align: center">add memory</h3>
+         <% if @memory.errors.any? %>
+            <div id="error_explanation" class="text-center">
+                <h5><%= @memory.errors.count %>件のエラーが発生しました。</h5>
+                <% @memory.errors.full_messages.each do |message| %>
+                    <h6><%= message %></h6>
+                <% end %>
+            </div>
+        <% end %>
+    	<%= form_for(memory, url: user_friend_memories_path(user_id: current_user.id, friend_id: friend.id), method: :post) do |f| %>
+    		<div class="form-group">
+    			<label for="pic">image:</label>
+    			<%= f.attachment_field :image, id:"pic" %>
+    		</div>
+    		<div class="form-group">
+    			<label for="title">title:</label>
+    			<%= f.text_field :title, class:"form-control", id:"title", placeholder: "タイトル" %>
+    		</div>
+    		<div class="form-group">
+    			<label for="comment">comment:</label>
+    			<%= f.text_area :body, class:"form-control", id:"comment", placeholder: "コメント" %>
+    		</div>
+    		<%= f.submit "create", class:"button" %>
+    	<% end %>
+    </div>
+</div>

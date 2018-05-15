@@ -1,0 +1,427 @@
+
+<script>
+    $(function(){
+       // #で始まるアンカーをクリックした場合に処理
+       $('a[href^=#]').click(function() {
+          // スクロールの速度
+          var speed = 800; // ミリ秒
+          // アンカーの値取得
+          var href= $(this).attr("href");
+          // 移動先を取得
+          var target = $(href == "#" || href == "" ? 'html' : href);
+          // 移動先を数値で取得
+          var position = target.offset().top;
+          // スムーススクロール
+          $('body,html').animate({scrollTop:position}, speed, 'swing');
+          return false;
+       });
+     });
+</script>
+<div class="top-box"></div>
+
+<%= render 'shared/sidebar' %>
+            <!-- concept -->
+    <div class="top-page">
+        <div class="box">
+            <div class="container">
+                <div id="concept-menu">
+                    <div class="head-line">CONCEPT</div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="c-box">
+                        <div class="c-title">material</div>
+                        <div class="c-text">
+                            安心で本当に美味しいものを食べてもらいたい。<br>
+                            そんな思いから、北海道の素材を厳選し、<br>
+                            安心で安全なおかし作りを追求しています。
+                        </div>
+                        <div class="material-item clearfix">
+                            <div class="m-box" style="background-image: url(/assets/sugar.jpg);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-Sugar-</div>
+                                        北海道産の砂糖大根から<br>
+                                        作られた甜菜糖。<br>
+                                        まろやかな甘さとコク、<br>
+                                        豊かな風味が特徴です。<br>
+                                        カリウムやカルシウムなどの<br>
+                                        ミネラルがたっぷり<br>
+                                        含まれているお砂糖です。
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-box" style="background-image: url(/assets/egg.jpg);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-Egg-</div>
+                                        大自然の中で<br>
+                                        のびのびと育った <br>
+                                        健康な鶏から産まれる<br>
+                                        とびきりの平飼い卵。<br>
+                                        深い甘みとコクが特徴の<br>
+                                        濃厚な卵です。<br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-box" style="background-image: url(/assets/cheese.jpg);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-Cheese-</div>
+                                        北海道根釧地区の生乳を<br>
+                                        使用して作られた<br>
+                                        やさしい乳味感と<br>
+                                        まろやかな塩味がある<br>
+                                        口当りなめらかなチーズです。
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-box" style="background-image: url(/assets/cream.jpg);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-cream-</div>
+                                        口に入れた瞬間に<br>
+                                        豊かな風味とコクが広がる<br>
+                                        北海道産純生クリーム。<br>
+                                        ほのかな甘みが特徴の<br>
+                                        濃厚な生クリームです。
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-box" style="background-image: url(/assets/flour.jpeg);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-Flour-</div>
+                                        北海道産の小麦粉の中でも<br>
+                                        特に1級品だけを厳選し<br>
+                                        製粉した最高級小麦粉。<br>
+                                        しっとり感・口溶けの良さは<br>
+                                        北海道産小麦粉らしく抜群です。
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-box" style="background-image: url(/assets/butter.png);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-Butter-</div>
+                                        原料はクリームと食塩のみ。<br>
+                                        保存料や着色料などを<br>
+                                        使わずに作られた、<br>
+                                        こだわりのバター。<br>
+                                        脂分が少なく、爽やかなコクと<br>滑らかさしっとり感が特徴の<br>
+                                        発酵バターです。<br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="c-box clearfix">
+                        <div class="c-title">handmade</div>
+                        <div class="c-text">
+                            美味しいお菓子を届けるために、<br>
+                            パティシエが１つ１つ<br>
+                            手作業で仕上げています。
+                        </div>
+                        <dl>
+                            <dt>
+                                <div class="h-box"></div>
+                                <div class="h-box2">
+                                    皆様の大切な人の<br>
+                                    大切な日を<br>
+                                    一緒にお祝いしたい。<br>
+                                    そんな思いで、<br>
+                                    一つ一つ心を込めて<br>
+                                    お作りしています。<br>
+                                </div>
+                            </dt>
+                            <div class="h-box3">
+                                <div class="mask"></div>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="c-box">
+                        <div class="c-title">fresh</div>
+                        <div class="c-text">
+                            一番美味しい状態でお召し上がりいただく為に、<br>
+                            鮮度と温度の管理を大切にしています。
+                        </div>
+                        <dl>
+                            <div class="f-box1"><div class="mask"></div></div>
+                            <dd class="f-box2">
+                                徹底した「安全と安心」への<br>
+                                こだわりと、鮮度を大切にしています。<br>
+                                農業の現場から、最終的な製造まで、<br>
+                                安全・安心に対する厳しい審査基準を設け、<br>
+                                日々のお菓子づくりに取組んでいます。<br>
+                                一番美味しい状態でお召し上がりいただく為に、<br>
+                                「焼き立て」のテイストややわらかさ、<br>
+                                しっとり感、おいしさをより長く保持するための<br>
+                                革新的な商品を追求し続けています。<br>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+<!-- mobile concept-->
+                <dl id="concept">
+                    <dt>material</dt>
+                    <dd>
+                        <div class="c-text">
+                            安心で本当に美味しいものを食べてもらいたい。<br>
+                            そんな思いから、北海道の素材を厳選し、<br>
+                            安心で安全なおかし作りを追求しています。
+                        </div>
+                        <div class="material-item clearfix">
+                            <div class="m-box" style="background-image: url(/assets/sugar.jpg);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-Sugar-</div>
+                                        北海道産の砂糖大根から<br>
+                                        作られた甜菜糖。<br>
+                                        まろやかな甘さとコク、<br>
+                                        豊かな風味が特徴です。<br>
+                                        カリウムやカルシウムなどの<br>
+                                        ミネラルがたっぷり<br>
+                                        含まれているお砂糖です。
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-box" style="background-image: url(/assets/egg.jpg);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-Egg-</div>
+                                        大自然の中で<br>
+                                        のびのびと育った <br>
+                                        健康な鶏から産まれる<br>
+                                        とびきりの平飼い卵。<br>
+                                        深い甘みとコクが特徴の<br>
+                                        濃厚な卵です。<br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-box" style="background-image: url(/assets/cheese.jpg);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-Cheese-</div>
+                                        北海道根釧地区の生乳を<br>
+                                        使用して作られた<br>
+                                        やさしい乳味感と<br>
+                                        まろやかな塩味がある<br>
+                                        口当りなめらかな<br>チーズです。
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-box" style="background-image: url(/assets/cream.jpg);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-cream-</div>
+                                        口に入れた瞬間に<br>
+                                        豊かな風味とコクが広がる<br>
+                                        北海道産純生クリーム。<br>
+                                        ほのかな甘みが特徴の<br>
+                                        濃厚な生クリームです。
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-box" style="background-image: url(/assets/flour.jpeg);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-Flour-</div>
+                                        北海道産の小麦粉の中でも<br>
+                                        特に1級品だけを厳選し<br>
+                                        製粉した最高級小麦粉。<br>
+                                        しっとり感・口溶けの良さは<br>
+                                        北海道産小麦粉らしく<br>抜群です。
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-box" style="background-image: url(/assets/butter.png);">
+                                <div class="mask">
+                                    <div class="caption">
+                                        <div class="text-b">-Butter-</div>
+                                        原料はクリームと食塩のみ。<br>
+                                        保存料や着色料などを<br>
+                                        使わずに作られた、<br>
+                                        こだわりのバター。<br>
+                                        脂分が少なく、<br>
+                                        爽やかなコクと<br>
+                                        滑らかさしっとり感が<br>
+                                        特徴の
+                                        発酵バターです。<br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                    <dt>handmade</dt>
+                    <dd>
+                        <div class="c-box clearfix">
+                            <div class="c-text">
+                                美味しいお菓子を届けるために、<br>
+                                パティシエが１つ１つ<br>
+                                手作業で仕上げています。
+                            </div>
+                            <dl>
+                                <dt>
+                                    <div class="h-box"></div>
+                                    <div class="h-box2">
+                                        皆様の大切な人の<br>
+                                        大切な日を<br>
+                                        一緒にお祝いしたい。<br>
+                                        そんな思いで、<br>
+                                        一つ一つ心を込めて<br>
+                                        お作りしています。<br>
+                                    </div>
+                                </dt>
+                                <div class="h-box3">
+                                    <div class="mask"></div>
+                                </div>
+                            </dl>
+                        </div>
+                    </dd>
+                    <dt>fresh</dt>
+                    <dd>
+                        <div class="c-text">
+                            一番美味しい状態でお召し上がりいただく為に、<br>
+                            鮮度と温度の管理を大切にしています。
+                        </div>
+                        <dl>
+                            <div class="f-box1"><div class="mask"></div></div>
+                            <dd class="f-box2">
+                                徹底した「安全と安心」への<br>
+                                こだわりと、鮮度を大切にしています。<br>
+                                農業の現場から、最終的な製造まで、<br>
+                                安全・安心に対する厳しい審査基準を設け、<br>
+                                日々のお菓子づくりに取組んでいます。<br>
+                                一番美味しい状態でお召し上がりいただく為に、<br>
+                                「焼き立て」のテイストややわらかさ、<br>
+                                しっとり感、おいしさをより長く保持するための<br>
+                                革新的な商品を追求し続けています。<br>
+                            </dd>
+                        </dl>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+<!-- mobile concept finish -->
+
+    <!-- news -->
+
+        <div class="clearfix">
+            <div id="news">
+                <div class="head-line">NEWS</div>
+            </div>
+            <% @informations.each_with_index do |info, i| %>
+                <%= content_tag(:div, class: "n-box", "data-toggle" => "modal", "data-target" => "#myModal#{i}") do %>
+                <img class="n-pic"  style="background-image: <%= attachment_image_tag info, :image; %>
+                <div class="mask">
+                    <div class="caption">
+                        <%= info.created_at.strftime('%Y年%m月%d日') %><br>
+                        <%= info.title %>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+        <!-- Modal -->
+    <% @informations.each_with_index do |info, i| %>
+        <%= content_tag(:div, class: ["modal", "fade"], id: "myModal#{i}",  role: "dialog") do %>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">
+                            <%= info.created_at.strftime('%Y年%m月%d日') %><br>
+                            <%= info.title %>
+                        </h4>
+                    </div>
+                    <div class="modal-body" style="text-align: center">
+                        <div class="modal-image">
+                            <%= attachment_image_tag info, :image %>
+                        </div>
+                        <p style="padding-top: 20px"><%= info.body %></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+
+    <div class="container shop-show">
+        <div id="shop">
+            <div class="head-line" style="padding-top: 30px">SHOP</div>
+        </div>
+        <div class="col-xs-12 center-block">
+            <img src="/assets/village.jpg" class="shop-image">
+        </div>
+        <div class="col-xs-12">
+            <div class="col-lg-6 col-xs-12" style="margin-top: 50px">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d221190.16384495582!2d139.51920315118906!3d35.803684442169896!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018c2d15413cd0d%3A0x55fc81adaace9eba!2z44Go44GL44Gh5p2R5a-M5aOr6KaL5bqX!5e0!3m2!1sja!2sjp!4v1523297355900" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            <div class="col-xs-6">
+                <table class="table">
+                    <caption><h1 style="text-align: center; padding-top: 30px">growth</h1></caption>
+                    <tbody>
+                        <tr>
+                            <td>住所</td>
+                            <td>〒３５４−００３１<br>
+                                埼玉県富士見市鶴馬２丁目１７−３７
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>電話番号</td>
+                            <td>０１２０−１１２−７２１</td>
+                        </tr>
+                        <tr>
+                            <td>営業時間</td>
+                            <td>１０:００〜１９:００</td>
+                        </tr>
+                        <tr>
+                            <td>定休日</td>
+                            <td>毎週火曜日</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+     <div class="container mobile-shop">
+        <div id="shop">
+            <div class="head-line" style="padding-top: 30px">SHOP</div>
+        </div>
+            <img src="/assets/village.jpg" class="shop-image">
+            <table class="table">
+                <caption><h3 style="text-align: center;">growth</h3></caption>
+                <tbody>
+                    <tr>
+                        <td>住所</td>
+                        <td>〒３５４−００３１<br>
+                            埼玉県富士見市鶴馬２丁目１７−３７
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>電話番号</td>
+                        <td>０１２０−１１２−７２１</td>
+                    </tr>
+                    <tr>
+                        <td>営業時間</td>
+                        <td>１０:００〜１９:００</td>
+                    </tr>
+                    <tr>
+                        <td>定休日</td>
+                        <td>毎週火曜日</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 style="text-align: center;">access</h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d221190.16384495582!2d139.51920315118906!3d35.803684442169896!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018c2d15413cd0d%3A0x55fc81adaace9eba!2z44Go44GL44Gh5p2R5a-M5aOr6KaL5bqX!5e0!3m2!1sja!2sjp!4v1523297355900" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+
+

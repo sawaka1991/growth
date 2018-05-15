@@ -1,0 +1,25 @@
+<div class="ac-box">
+	<table class="table">
+		<caption>material list</caption>
+		<thead>
+			<tr>
+				<th>taste</th>
+				<th>edit</th>
+				<th>destroy</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @tastes.each do |t| %>
+				<tr>
+					<td><%= t.taste_name %></td>
+					<td>
+						<%= link_to "edit", sizes_path(taste_id: t.id), class:"edit" %>
+					</td>
+					<td>
+						<%= link_to "delete", taste_path(id: t.id), method: :delete, "data-confirm" => "are you sure?", class: "delete"  %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,50 @@
+<div class="item_price_form">
+	<% if params[:item_price_id].present? %>
+		<%= form_for(item_price, url: item_item_price_path(item_id: item.id, id: item_price.id), method: :patch) do |p| %>
+			<div class="form-group">
+				<label for="edit_price">価格：</label>
+				<div id="edit_price">
+					<%= p.collection_select :size_id, Size.all, :id, :size_name %>
+					<%= p.number_field :price, class: "form-control" %>
+	  			</div>
+	  			<%= p.submit "edit", class: "edit pull-right" %>
+	  			<%= link_to "back", edit_item_path(item), class: "button pull-right" %>
+			</div>
+		<% end %>
+	<% else %>
+		<% if flash[:price_error] %>
+	    	<div class="flash"><%= flash[:price_error] %></div>
+		<% end %>
+		<%= form_for([item, item_price]) do |p| %>
+			<div class="form-group">
+				<label for="edit_price">価格：</label>
+				<div id="edit_price">
+					<%= p.collection_select :size_id, Size.all, :id, :size_name %>
+					<%= p.number_field :price, class: "form-control" %>
+	  			</div>
+	  			<%= p.submit "create", class: "create pull-right" %>
+			</div>
+		<% end %>
+	<% end %>
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>size</th>
+			<th>price</th>
+			<th>edit</th>
+			<th>delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% item_prices.each do |ip| %>
+			<tr>
+				<td><%= ip.size.size_name %></td>
+				<td><%= ip.price %></td>
+				<td><%= link_to "edit", edit_item_path(id: item.id, item_price_id: ip.id), class: "edit" %>
+				</td>
+				<td><%= link_to "delete", item_item_price_path(item_id: item.id, id: ip), method: :delete, class: "delete" %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
