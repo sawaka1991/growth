@@ -3,6 +3,7 @@
 class Admins::RegistrationsController < Devise::RegistrationsController
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :basic, only: [:new]
 
   # GET /resource/sign_up
   # def new
@@ -61,6 +62,11 @@ class Admins::RegistrationsController < Devise::RegistrationsController
   # end
 
 protected
+  def basic
+    authenticate_or_request_with_http_basic do |admin, pass|
+      admin == 'admin' && pass == 'growth'
+    end
+  end
 
   ### サインアップ後のリダイレクト ###
   def after_sign_up_path_for(resource)

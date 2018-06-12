@@ -13,8 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require rails-ujs
-//= require_tree .
 //= require jquery_nested_form
+$(function(){
+    AOS.init();
+});
 
 //ハンバーガー！
 $(function(){

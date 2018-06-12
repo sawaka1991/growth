@@ -18,7 +18,7 @@
 				<% sub_total = 0 %>
 				<% news = @histories.where(status: 0) %>
 				<% news.each do |history| %>
-				  	<dt>ご予約日:<%= history.reserve_date.strftime("%y.%m.%d") %>&emsp;&emsp;
+				  	<dt>ご予約日:<%= history.reserve_date.strftime("%y.%m.%d(%a)") %>&emsp;&emsp;
 				  		受け取り時間:<%= history.time %>
 			  		</dt>
 				  	<dd>
@@ -82,7 +82,7 @@
 							    </tr>
 							    <tr>
 							        <td colspan="2">ご予約日</td>
-							        <td><%= history.reserve_date.strftime("%y年%m月%d日") %></td>
+							        <td><%= history.reserve_date.strftime("%y年%m月%d日(%a)") %></td>
 							    </tr>
 							    <tr>
 							        <td colspan="2">受け取り時間</td>
@@ -119,7 +119,7 @@
         	<% reserves = @histories.where(status: 1) %>
 			<% reserves.each do |history| %>
 				<dl id="history">
-				  	<dt>ご予約日:<%= history.created_at.strftime("%y.%m.%d") %>&emsp;&emsp;
+				  	<dt>ご予約日:<%= history.reserve_date.strftime("%y.%m.%d(%a)") %>&emsp;&emsp;
 				  		受け取り時間:<%= history.time %>
 			  		</dt>
 				  	<dd>
@@ -183,7 +183,7 @@
 							    </tr>
 							    <tr>
 							        <td colspan="2">ご予約日</td>
-							        <td><%= history.reserve_date.strftime("%y年%m月%d日") %></td>
+							        <td><%= history.reserve_date.strftime("%y年%m月%d日(%a)") %></td>
 							    </tr>
 							    <tr>
 							        <td colspan="2">受け取り時間</td>
@@ -212,15 +212,15 @@
 					      	</tbody>
 					  	</table>
 				  	</dd>
-				</dl>
 			<% end %>
+				</dl>
 		</div>
 		<div id="finish" class="tab-pane fade">
 	       	<div class="head-line">finish</div>
         	<% finish = @histories.where(status: 2) %>
 			<% finish.each do |history| %>
 				<dl id="history">
-				  	<dt>ご予約日:<%= history.created_at.strftime("%y.%m.%d") %>&emsp;&emsp;
+				  	<dt>ご予約日:<%= history.reserve_date.strftime("%y.%m.%d(%a)") %>&emsp;&emsp;
 				  		受け取り時間:<%= history.time %>
 			  		</dt>
 				  	<dd>
@@ -284,7 +284,7 @@
 							    </tr>
 							    <tr>
 							        <td colspan="2">ご予約日</td>
-							        <td><%= history.reserve_date.strftime("%y年%m月%d日") %></td>
+							        <td><%= history.reserve_date.strftime("%y年%m月%d日(%a)") %></td>
 							    </tr>
 							    <tr>
 							        <td colspan="2">受け取り時間</td>

@@ -30,4 +30,13 @@ class User < ApplicationRecord
    has_many :histories, dependent: :destroy
    has_many :items, through: :reviews
    has_one :cart
+
+   validates :first_name,:last_name,
+            :kana_first_name,
+            :kana_last_name,
+            :zipcode,
+            :tel,
+            :address,
+            :nickname,
+            presence: true
 end

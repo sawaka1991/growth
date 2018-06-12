@@ -18,6 +18,7 @@
             <caption><h3>family</h3></caption>
             <thead>
                 <tr>
+                    <th>image</th>
                     <th>name</th>
                     <th>birth</th>
                     <th>next age</th>
@@ -28,6 +29,11 @@
             <tbody>
             <% friends.each do |friend| %>
                 <tr>
+                    <td>
+                        <div class="h-image">
+                            <%= attachment_image_tag friend, :image, fallback: "no_image.png"  %>
+                        </div>
+                    </td>
                     <td style="font-size: 20px">
                         <%= link_to user_friend_path(user_id: current_user.id, id: friend.id) do %>
                         <div class="font">
@@ -60,6 +66,7 @@
             <caption><h3>friend</h3></caption>
             <thead>
                 <tr>
+                    <th>image</th>
                     <th>name</th>
                     <th>birth</th>
                     <th>next age</th>
@@ -70,6 +77,11 @@
             <tbody>
             <% friends.each do |friend| %>
                 <tr>
+                    <td>
+                        <div class="h-image">
+                            <%= attachment_image_tag friend, :image, fallback: "no_image.png"  %>
+                        </div>
+                    </td>
                     <td style="font-size: 20px">
                         <%= link_to user_friend_path(user_id: current_user.id, id: friend.id) do %>
                         <div class="font">
@@ -102,6 +114,7 @@
             <caption><h3>company</h3></caption>
             <thead>
                 <tr>
+                    <th>image</th>
                     <th>name</th>
                     <th>birth</th>
                     <th>next age</th>
@@ -112,6 +125,11 @@
             <tbody>
             <% friends.each do |friend| %>
                 <tr>
+                    <td>
+                        <div class="h-image">
+                            <%= attachment_image_tag friend, :image, fallback: "no_image.png"  %>
+                        </div>
+                    </td>
                     <td style="font-size: 20px">
                         <%= link_to user_friend_path(user_id: current_user.id, id: friend.id) do %>
                         <div class="font">
@@ -144,6 +162,7 @@
             <caption><h3>other</h3></caption>
             <thead>
                 <tr>
+                    <th>image</th>
                     <th>name</th>
                     <th>birth</th>
                     <th>next age</th>
@@ -154,6 +173,11 @@
             <tbody>
             <% friends.each do |friend| %>
                 <tr>
+                    <td>
+                        <div class="h-image">
+                            <%= attachment_image_tag friend, :image, fallback: "no_image.png"  %>
+                        </div>
+                    </td>
                     <td style="font-size: 20px">
                         <%= link_to user_friend_path(user_id: current_user.id, id: friend.id) do %>
                         <div class="font">

@@ -28,14 +28,15 @@ class FriendsController < ApplicationController
 		@user = current_user
 		@friends = Friend.where(user_id: current_user)
 	 	@friend = Friend.new(friend_params)
-		@friend.likes.build
 	 	@friend.user_id = current_user.id
 	 	if @friend.save
-	 		tastes = params[:friend][:likes_attributes]["0"][:taste_id]
-			tastes.each do |taste|
-				like = @friend.likes.new
-				like.taste_id = taste
-				like.save
+	 		if params[:friend][:likes_attributes].present?
+		 		tastes = params[:friend][:likes_attributes]["0"][:taste_id]
+				tastes.each do |taste|
+					like = @friend.likes.new
+					like.taste_id = taste
+					like.save
+				end
 			end
 			redirect_to user_friends_path(current_user.id)
 		else
@@ -59,9 +60,9 @@ class FriendsController < ApplicationController
 	end
 
 	def destroy
-		@friend = Friend.find(prams[:id])
+		@friend = Friend.find(params[:id])
 		@friend.destroy
-		redirect_to user_friends_path(current_user_id)
+		redirect_to user_friends_path(current_user.id)
 	end
 
 

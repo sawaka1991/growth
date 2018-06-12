@@ -8,6 +8,22 @@ class ItemsController < ApplicationController
 		@q = @sell.search(params[:q])
     	@items = @q.result(distinct: true)
     	@all_items = Item.all
+    	@qu = @sell.ransack(params[:q])
+			if params[:q].present?
+				@sell= @qu.result
+			else
+				@sell= @sell.all
+			end
+	end
+
+	def search
+		@q = Item.ransack(params[:q])
+			if params[:q].present?
+				@searches = @q.result
+			else
+				@searches = Item.where(status: 0)
+			end
+
 	end
 
 	def top
@@ -27,6 +43,12 @@ class ItemsController < ApplicationController
 		@item.item_prices.build
 		@item.item_tastes.build
 
+	end
+
+	def earn
+		@items = Item.all
+		@item_histories = ItemHistory.all
+		
 	end
 
 	def create
@@ -91,8 +113,6 @@ class ItemsController < ApplicationController
 		@item.update(item_params)
 		redirect_to edit_item_path(@item)
 	end
-
-
 
 private
 
